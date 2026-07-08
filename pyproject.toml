@@ -1,0 +1,7 @@
+[project]
+name = "bp-maplestory"
+version = "0.1.0"
+description = "This is a Maplestory all-in-one webapp."
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = []
