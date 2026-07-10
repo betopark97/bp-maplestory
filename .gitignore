@@ -11,6 +11,7 @@ wheels/
 
 # Secrets
 .env
+**/.dlt/secrets.toml
 
 # Claude Code
 .claude/

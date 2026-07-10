@@ -1,0 +1,6 @@
+# Non-secret dlt configuration (committed).
+# Credentials live in secrets.toml (gitignored).
+# https://dlthub.com/docs/general-usage/credentials/setup
+
+[runtime]
+log_level = "INFO"
