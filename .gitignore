@@ -12,6 +12,13 @@ wheels/
 # Secrets
 .env
 **/.dlt/secrets.toml
+transformation/profiles.yml
+
+# dbt
+transformation/target/
+transformation/dbt_packages/
+transformation/logs/
+transformation/.user.yml
 
 # Claude Code
 .claude/

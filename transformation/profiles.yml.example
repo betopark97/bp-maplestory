@@ -1,0 +1,14 @@
+# Copy to profiles.yml and fill in. profiles.yml is gitignored.
+# Run dbt with: uv run dbt <cmd> --profiles-dir .
+transformation:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: localhost
+      port: 5432
+      user: postgres
+      password: ""          # fill in
+      dbname: maplestory
+      schema: analytics      # dbt build schema
+      threads: 4
