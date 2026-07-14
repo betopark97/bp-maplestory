@@ -8,7 +8,7 @@ BASE_URL = "https://open.api.nexon.com"
 # -------------------------------------------------------------------------------------
 # User 계정 정보 조회
 CHARACTER_LIST = "/maplestory/v1/character/list" # 캐릭터 목록 조회
-USER_ACHIEVEMENT = "/maplestory/v1/character/achievement" # 업적 정보 조회
+USER_ACHIEVEMENT = "/maplestory/v1/user/achievement" # 업적 정보 조회
 
 # Character 캐릭터 정보 조회
 ID = "/maplestory/v1/id" # 캐릭터 식별자(ocid) 조회
