@@ -48,7 +48,12 @@ def nexon(api_key: str = dlt.secrets.value):
                 "name": "character_list",
                 "endpoint": {"path": CHARACTER_LIST},
                 "write_disposition": "replace",
-            }
+            },
+            {
+                "name": "user_achievement",
+                "endpoint": {"path": USER_ACHIEVEMENT},
+                "write_disposition": "replace",
+            },
         ],
     }
 
