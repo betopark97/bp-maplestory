@@ -31,7 +31,7 @@ from .settings import (
 )
 
 
-@dlt.source(name="nexon")
+@dlt.source(name="nexon", max_table_nesting=0)
 def nexon(api_key: str = dlt.secrets.value):
     config = {
         "client": {
