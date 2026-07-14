@@ -1,4 +1,18 @@
-.PHONY: backend-sync backend-run ingestion-sync ingestion-run transformation-sync transformation-debug transformation-run
+.PHONY: up down db-logs db-psql backend-sync backend-run ingestion-sync ingestion-run transformation-sync transformation-debug transformation-run
+
+COMPOSE = docker compose -f infra/docker-compose.yml
+
+up:  ## Start the local dev postgres (detached)
+	$(COMPOSE) up -d --build
+
+down:  ## Stop the local dev postgres (keeps data)
+	$(COMPOSE) down
+
+db-logs:  ## Tail postgres logs
+	$(COMPOSE) logs -f postgres
+
+db-psql:  ## Open a psql shell in the container
+	$(COMPOSE) exec postgres psql -U $${POSTGRES_USER:-postgres} -d $${POSTGRES_DB:-maplestory}
 
 backend-sync:  ## Install/refresh backend deps into backend/.venv
 	cd backend && uv sync
