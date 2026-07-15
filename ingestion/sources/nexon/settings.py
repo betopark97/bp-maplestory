@@ -34,4 +34,20 @@ ENDPOINTS = {
     "character_other_stat": "/maplestory/v1/character/other-stat",  # 기타 능력치 영향 요소 정보 조회
     "character_ring_exchange_skill_equipment": "/maplestory/v1/character/ring-exchange-skill-equipment",  # 링 익스체인지 스킬 등록 장비 조회
     "character_ring_reserve_skill_equipment": "/maplestory/v1/character/ring-reserve-skill-equipment",  # 예비 특수 반지 장착 정보 조회
+    # Union 유니온 정보 조회
+    "user_union": "/maplestory/v1/user/union",  # 유니온 정보 조회
+    "user_union_raider": "/maplestory/v1/user/union-raider",  # 유니온 공격대 정보 조회
+    "user_union_artifact": "/maplestory/v1/user/union-artifact",  # 유니온 아티팩트 정보 조회
+    "user_union_champion": "/maplestory/v1/user/union-champion",  # 유니온 챔피언 정보 조회
+    # Scheduler 스케줄러 정보 조회
+    "scheduler_character_state": "/maplestory/v1/scheduler/character-state",  # 캐릭터의 스케줄러 정보 조회
+    # Notice 공지 정보 조회
+    "notice": "/maplestory/v1/notice",  # 공지사항 목록 조회
+    "notice_detail": "/maplestory/v1/notice/detail",  # 공지사항 상세 조회
+    "notice_update": "/maplestory/v1/notice-update",  # 업데이트 목록 조회
+    "notice_update_detail": "/maplestory/v1/notice-update/detail",  # 업데이트 상세 조회
+    "notice_event": "/maplestory/v1/notice-event",  # 진행 중 이벤트 목록 조회
+    "notice_event_detail": "/maplestory/v1/notice-event/detail",  # 진행 중 이벤트 상세 조회
+    "notice_cashshop": "/maplestory/v1/notice-cashshop",  # 캐시샵 공지 목록 조회
+    "notice_cashshop_detail": "/maplestory/v1/notice-cashshop/detail",  # 캐시샵 공지 상세 조회
 }
