@@ -2,6 +2,7 @@ import dlt
 from dlt.sources.helpers.rest_client import RESTClient
 from dlt.sources.helpers.rest_client.auth import APIKeyAuth
 
+from .helpers import build_ocid_child, is_ocid_child
 from .settings import BASE_URL, ENDPOINTS, MIN_TRACK_LEVEL
 
 
@@ -14,7 +15,11 @@ def nexon(api_key: str = dlt.secrets.value):
 
     @dlt.resource(name="character_list", write_disposition="replace")
     def character_list():
-        yield client.get(ENDPOINTS["character_list"]).json()
+        yield client.get(path=ENDPOINTS["character_list"]["path"]).json()
+
+    @dlt.resource(name="user_achievement", write_disposition="replace")
+    def user_achievement():
+        yield client.get(path=ENDPOINTS["user_achievement"]["path"]).json()
 
     @dlt.transformer(data_from=character_list, selected=False)
     def filter_characters(character_list):
@@ -23,17 +28,10 @@ def nexon(api_key: str = dlt.secrets.value):
                 if character["character_level"] > MIN_TRACK_LEVEL:
                     yield character
 
-    @dlt.transformer(
-        data_from=filter_characters, name="character_basic", write_disposition="replace"
-    )
-    def character_basic(character):
-        yield client.get(
-            ENDPOINTS["character_basic"],
-            params={"ocid": character["ocid"]},
-        ).json()
+    ocid_children = [
+        build_ocid_child(name, spec, filter_characters, client)
+        for name, spec in ENDPOINTS.items()
+        if is_ocid_child(spec)
+    ]
 
-    @dlt.resource(name="user_achievement", write_disposition="replace")
-    def user_achievement():
-        yield client.get(ENDPOINTS["user_achievement"]).json()
-
-    return [character_list, filter_characters, character_basic, user_achievement]
+    return [character_list, filter_characters, user_achievement, *ocid_children]
