@@ -1,4 +1,4 @@
-.PHONY: up down backend-run ingestion-run transformation-run clean pre-commit
+.PHONY: up down backend-run ingestion-run transformation-run clean pre-commit drop-schema
 
 COMPOSE = docker compose -f infra/docker-compose.yml
 
@@ -16,6 +16,13 @@ clean:  ## Remove python caches, dbt artifacts, and dangling docker images
 
 pre-commit:  ## Preview pre-commit hooks against all files (are we clean to commit?)
 	pre-commit run --all-files
+
+drop-schema:  ## Drop a schema + its dlt staging from the raw db (requires SCHEMA=<name>)
+	@test -n "$(SCHEMA)" || { echo "SCHEMA is required, e.g. make drop-schema SCHEMA=nexon"; exit 1; }
+	@echo "Dropping schema '$(SCHEMA)' and '$(SCHEMA)_staging' from raw db..."
+	$(COMPOSE) exec -T postgres sh -c 'psql -U "$$POSTGRES_USER" -d "$$POSTGRES_DB" \
+		-c "DROP SCHEMA IF EXISTS $(SCHEMA) CASCADE;" \
+		-c "DROP SCHEMA IF EXISTS $(SCHEMA)_staging CASCADE;"'
 
 backend-run:  ## Run the backend API (dev, auto-reload)
 	cd backend && uv run uvicorn main:app --reload
