@@ -59,8 +59,37 @@ def build_ocid_child(endpoint_name, endpoint_config, parent, client, date):
         identity["ocid"] = character["ocid"]
 
         # Actual endpoint response.
-        record = client.get(path=endpoint_config["path"], params=identity).json()
+        response = client.get(path=endpoint_config["path"], params=identity).json()
 
-        yield {**identity, **record}
+        yield {**identity, **response}
+
+    return _resource
+
+
+def build_notice_id_child(endpoint_name, endpoint_config, parent, client):
+    """Build a transformer that makes one detail call per upstream notice,
+    passing its notice_id. The same identity is stamped onto each row so
+    it is attributable.
+    Writes to its own table named `endpoint_name`.
+
+    These are merged on notice_id so re-running a updates in place while new
+    notice accumulate."""
+
+    @dlt.transformer(
+        data_from=parent,
+        name=endpoint_name,
+        write_disposition="merge",
+        primary_key="notice_id",
+    )
+    def _resource(notice):
+        time.sleep(REQUEST_DELAY)
+
+        # Stamp query parameters.
+        identity = {"notice_id": notice["notice_id"]}
+
+        # Actual endpoint response.
+        response = client.get(path=endpoint_config["path"], params=identity).json()
+
+        yield {**identity, **response}
 
     return _resource

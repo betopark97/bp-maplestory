@@ -115,14 +115,14 @@ ENDPOINTS = {
             "date": "optional",  # 조회 기준일 (KST, YYYY-MM-DD)
         },
     },
-    "character_skill": {
-        "path": "/maplestory/v1/character/skill",  # 스킬 정보 조회
-        "params": {
-            "ocid": "required",  # 캐릭터 식별자
-            "date": "optional",  # 조회 기준일 (KST, YYYY-MM-DD)
-            "character_skill_grade": "required",  # 조회하고자 하는 전직 차수 (0, 1, 1.5, 2, 2.5, 3, 4, hyperpassive, hyperactive, 5, 6)
-        },
-    },
+    # "character_skill": {
+    #     "path": "/maplestory/v1/character/skill",  # 스킬 정보 조회
+    #     "params": {
+    #         "ocid": "required",  # 캐릭터 식별자
+    #         "date": "optional",  # 조회 기준일 (KST, YYYY-MM-DD)
+    #         "character_skill_grade": "required",  # 조회하고자 하는 전직 차수 (0, 1, 1.5, 2, 2.5, 3, 4, hyperpassive, hyperactive, 5, 6)
+    #     },
+    # },
     "character_link_skill": {
         "path": "/maplestory/v1/character/link-skill",  # 장착 링크 스킬 정보 조회
         "params": {
