@@ -2,7 +2,7 @@ import dlt
 from dlt.sources.helpers.rest_client import RESTClient
 from dlt.sources.helpers.rest_client.auth import APIKeyAuth
 
-from .helpers import build_ocid_child, is_ocid_child
+from .helpers import build_ocid_child, default_date, is_ocid_child
 from .settings import BASE_URL, ENDPOINTS, MIN_TRACK_LEVEL
 
 
@@ -12,6 +12,9 @@ def nexon(api_key: str = dlt.secrets.value):
         base_url=BASE_URL,
         auth=APIKeyAuth(name="x-nxopen-api-key", api_key=api_key, location="header"),
     )
+
+    # This is a default date value for optional date parameters. It defaults to latest - 1 day.
+    date = default_date()
 
     @dlt.resource(name="character_list", write_disposition="replace")
     def character_list():
@@ -29,9 +32,11 @@ def nexon(api_key: str = dlt.secrets.value):
                     yield character
 
     ocid_children = [
-        build_ocid_child(name, spec, filter_characters, client)
-        for name, spec in ENDPOINTS.items()
-        if is_ocid_child(spec)
+        build_ocid_child(
+            endpoint_name, endpoint_config, filter_characters, client, date
+        )
+        for endpoint_name, endpoint_config in ENDPOINTS.items()
+        if is_ocid_child(endpoint_config)
     ]
 
     return [character_list, filter_characters, user_achievement, *ocid_children]
