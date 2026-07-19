@@ -18,6 +18,15 @@ clean-targets:
   - "dbt_packages"
 
 models:
+  +persist_docs:
+    relation: true
+    columns: true
   transformation:
     staging:
+      +database: maplestory
+      +schema: staging
+      +materialized: view
+    intermediate:
+      +materialized: view
+    mart:
       +materialized: view
