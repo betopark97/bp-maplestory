@@ -1,0 +1,13 @@
+version: 2
+
+sources:
+  - name: nexon
+    description: "Data provided by the Nexon API."
+    database: maplestory
+    schema: nexon
+    tables:
+      - name: character_list
+        description: "A list of characters' metadata."
+        columns:
+          - name: account_list
+            data_type: jsonb

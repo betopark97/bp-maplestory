@@ -1,0 +1,18 @@
+version: 2
+
+models:
+  - name: stg_nexon__character_list
+    description: "A list of characters' metadata."
+    columns:
+      - name: account_id
+        data_type: text
+      - name: ocid
+        data_type: text
+      - name: world_name
+        data_type: text
+      - name: character_name
+        data_type: text
+      - name: character_class
+        data_type: text
+      - name: character_level
+        data_type: int
