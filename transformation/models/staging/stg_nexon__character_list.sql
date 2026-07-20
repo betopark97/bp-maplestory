@@ -1,6 +1,8 @@
-{% set character_list = source('nexon', 'character_list') %}
+with character_list as (
+    select * from {{ source('nexon', 'character_list') }}
+),
 
-with stg_nexon__character_list as (
+stg_nexon__character_list as (
     select
         al ->> 'account_id' as account_id,
         cl ->> 'ocid' as ocid,
@@ -8,9 +10,9 @@ with stg_nexon__character_list as (
         cl ->> 'character_name' as character_name,
         cl ->> 'character_class' as character_class,
         (cl ->> 'character_level')::int as character_level
-    from {{ character_list }},
+    from character_list,
         lateral jsonb_array_elements(account_list) as al,
-        lateral jsonb_array_elements(account_list -> 'character_list') as cl
+        lateral jsonb_array_elements(al -> 'character_list') as cl
 )
 
 select * from stg_nexon__character_list
