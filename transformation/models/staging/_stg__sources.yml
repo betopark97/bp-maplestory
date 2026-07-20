@@ -6,8 +6,735 @@ sources:
     database: maplestory
     schema: nexon
     tables:
+      - name: user_achievement
+        description: "User's in-game achievement info."
+        columns:
+          - name: account_list
+            data_type: jsonb
       - name: character_list
         description: "A list of characters' metadata."
         columns:
           - name: account_list
             data_type: jsonb
+      - name: character_basic
+        description: "Character's basic info and metadata."
+        columns:
+          - name: date
+            data_type: date
+          - name: ocid
+            data_type: varchar
+          - name: character_name
+            data_type: varchar
+          - name: world_name
+            data_type: varchar
+          - name: character_gender
+            data_type: varchar
+          - name: character_class
+            data_type: varchar
+          - name: character_class_level
+            data_type: varchar
+          - name: character_level
+            data_type: bigint
+          - name: character_exp
+            data_type: bigint
+          - name: character_exp_rate
+            data_type: varchar
+          - name: character_image
+            data_type: varchar
+          - name: character_date_create
+            data_type: timestamptz
+          - name: access_flag
+            data_type: varchar
+          - name: liberation_quest_clear
+            data_type: varchar
+      - name: character_popularity
+        description: "Character's popularity metric."
+        columns:
+          - name: date
+            data_type: date
+          - name: ocid
+            data_type: varchar
+          - name: popularity
+            data_type: bigint
+      - name: character_stat
+        description: "Character's comprehensive stats (STR/DEX/INT/LUK, HP/MP, ATK, etc)."
+        columns:
+          - name: date
+            data_type: date
+          - name: ocid
+            data_type: varchar
+          - name: character_class
+            data_type: varchar
+          - name: final_stat
+            data_type: jsonb
+          - name: remain_ap
+            data_type: bigint
+      - name: character_hyper_stat
+        description: "Character's Hyper-stat point allocation details."
+        columns:
+          - name: date
+            data_type: date
+          - name: ocid
+            data_type: varchar
+          - name: character_class
+            data_type: varchar
+          - name: use_preset_no
+            data_type: varchar
+          - name: use_available_hyper_stat
+            data_type: bigint
+          - name: hyper_stat_preset_1
+            data_type: jsonb
+          - name: hyper_stat_preset_1_remain_point
+            data_type: bigint
+          - name: hyper_stat_preset_2
+            data_type: jsonb
+          - name: hyper_stat_preset_2_remain_point
+            data_type: bigint
+          - name: hyper_stat_preset_3
+            data_type: jsonb
+          - name: hyper_stat_preset_3_remain_point
+            data_type: bigint
+      - name: character_propensity
+        description: "Character's trait/propensity data (charisma, sense, insight, etc)."
+        columns:
+          - name: date
+            data_type: date
+          - name: ocid
+            data_type: varchar
+          - name: charisma_level
+            data_type: bigint
+          - name: sensibility_level
+            data_type: bigint
+          - name: insight_level
+            data_type: bigint
+          - name: willingness_level
+            data_type: bigint
+          - name: handicraft_level
+            data_type: bigint
+          - name: charm_level
+            data_type: bigint
+      - name: character_ability
+        description: "Character's ability stats."
+        columns:
+          - name: date
+            data_type: date
+          - name: ocid
+            data_type: varchar
+          - name: ability_grade
+            data_type: varchar
+          - name: ability_info
+            data_type: jsonb
+          - name: remain_fame
+            data_type: bigint
+          - name: preset_no
+            data_type: bigint
+          - name: ability_preset_1
+            data_type: jsonb
+          - name: ability_preset_2
+            data_type: jsonb
+          - name: ability_preset_3
+            data_type: jsonb
+      - name: character_item_equipment
+        description: "Character's item equipment (weapon, armor, accessories, etc)."
+        columns:
+          - name: date
+            data_type: date
+          - name: ocid
+            data_type: varchar
+          - name: character_gender
+            data_type: varchar
+          - name: character_class
+            data_type: varchar
+          - name: preset_no
+            data_type: bigint
+          - name: item_equipment
+            data_type: jsonb
+          - name: item_equipment_preset_1
+            data_type: jsonb
+          - name: item_equipment_preset_2
+            data_type: jsonb
+          - name: item_equipment_preset_3
+            data_type: jsonb
+          - name: title
+            data_type: jsonb
+          - name: title_preset1
+            data_type: jsonb
+          - name: title_preset2
+            data_type: jsonb
+          - name: title_preset3
+            data_type: jsonb
+          - name: dragon_equipment
+            data_type: jsonb
+          - name: mechanic_equipment
+            data_type: jsonb
+      - name: character_cash_item_equipment
+        description: "Character's cash item equipment (NX items)."
+        columns:
+          - name: date
+            data_type: date
+          - name: ocid
+            data_type: varchar
+          - name: character_gender
+            data_type: varchar
+          - name: character_class
+            data_type: varchar
+          - name: character_look_mode
+            data_type: varchar
+          - name: cash_item_equipment_base
+            data_type: jsonb
+          - name: cash_item_equipment_preset_1
+            data_type: jsonb
+          - name: cash_item_equipment_preset_2
+            data_type: jsonb
+          - name: cash_item_equipment_preset_3
+            data_type: jsonb
+          - name: additional_cash_item_equipment_base
+            data_type: jsonb
+          - name: additional_cash_item_equipment_preset_1
+            data_type: jsonb
+          - name: additional_cash_item_equipment_preset_2
+            data_type: jsonb
+          - name: additional_cash_item_equipment_preset_3
+            data_type: jsonb
+      - name: character_symbol_equipment
+        description: "Character's symbol equipment (arcane, authentic)."
+        columns:
+          - name: date
+            data_type: date
+          - name: ocid
+            data_type: varchar
+          - name: character_class
+            data_type: varchar
+          - name: symbol
+            data_type: jsonb
+      - name: character_set_effect
+        description: "Character's active set item effects (item, cash item, pet)."
+        columns:
+          - name: date
+            data_type: date
+          - name: ocid
+            data_type: varchar
+          - name: set_effect
+            data_type: jsonb
+      - name: character_beauty_equipment
+        description: "Character's beauty equipment (hair, face, skin)."
+        columns:
+          - name: date
+            data_type: date
+          - name: ocid
+            data_type: varchar
+          - name: character_gender
+            data_type: varchar
+          - name: character_class
+            data_type: varchar
+          - name: character_hair
+            data_type: jsonb
+          - name: character_face
+            data_type: jsonb
+          - name: character_skin
+            data_type: jsonb
+      - name: character_android_equipment
+        description: "Character's Android equipment (hair, face, skin, equipment, etc.)."
+        columns:
+          - name: date
+            data_type: date
+          - name: ocid
+            data_type: varchar
+          - name: android_name
+            data_type: varchar
+          - name: android_nickname
+            data_type: varchar
+          - name: android_icon
+            data_type: varchar
+          - name: android_description
+            data_type: varchar
+          - name: android_hair
+            data_type: jsonb
+          - name: android_face
+            data_type: jsonb
+          - name: android_skin
+            data_type: jsonb
+          - name: android_cash_item_equipment
+            data_type: jsonb
+          - name: android_ear_sensor_clip_flag
+            data_type: varchar
+          - name: android_gender
+            data_type: varchar
+          - name: android_grade
+            data_type: varchar
+          - name: android_non_humanoid_flag
+            data_type: varchar
+          - name: android_shop_usable_flag
+            data_type: varchar
+          - name: preset_no
+            data_type: bigint
+          - name: android_preset_1
+            data_type: jsonb
+      - name: character_pet_equipment
+        description: "Character's pet gear (3 pets)."
+        columns:
+          - name: date
+            data_type: date
+          - name: ocid
+            data_type: varchar
+          - name: pet_activate_flag
+            data_type: varchar
+          - name: pet_1_name
+            data_type: varchar
+          - name: pet_1_nickname
+            data_type: varchar
+          - name: pet_1_icon
+            data_type: varchar
+          - name: pet_1_description
+            data_type: varchar
+          - name: pet_1_equipment
+            data_type: jsonb
+          - name: pet_1_auto_skill
+            data_type: jsonb
+          - name: pet_1_pet_type
+            data_type: varchar
+          - name: pet_1_skill
+            data_type: jsonb
+          - name: pet_1_date_expire
+            data_type: timestamptz
+          - name: pet_1_appearance
+            data_type: varchar
+          - name: pet_1_appearance_icon
+            data_type: varchar
+          - name: pet_2_name
+            data_type: varchar
+          - name: pet_2_nickname
+            data_type: varchar
+          - name: pet_2_icon
+            data_type: varchar
+          - name: pet_2_description
+            data_type: varchar
+          - name: pet_2_equipment
+            data_type: jsonb
+          - name: pet_2_auto_skill
+            data_type: jsonb
+          - name: pet_2_pet_type
+            data_type: varchar
+          - name: pet_2_skill
+            data_type: jsonb
+          - name: pet_2_date_expire
+            data_type: timestamptz
+          - name: pet_2_appearance
+            data_type: varchar
+          - name: pet_2_appearance_icon
+            data_type: varchar
+          - name: pet_3_name
+            data_type: varchar
+          - name: pet_3_nickname
+            data_type: varchar
+          - name: pet_3_icon
+            data_type: varchar
+          - name: pet_3_description
+            data_type: varchar
+          - name: pet_3_equipment
+            data_type: jsonb
+          - name: pet_3_auto_skill
+            data_type: jsonb
+          - name: pet_3_pet_type
+            data_type: varchar
+          - name: pet_3_skill
+            data_type: jsonb
+          - name: pet_3_date_expire
+            data_type: timestamptz
+          - name: pet_3_appearance
+            data_type: varchar
+          - name: pet_3_appearance_icon
+            data_type: varchar
+          - name: world_share_pet_1_name
+            data_type: varchar
+          - name: world_share_pet_1_nickname
+            data_type: varchar
+          - name: world_share_pet_1_icon
+            data_type: varchar
+          - name: world_share_pet_1_description
+            data_type: varchar
+          - name: world_share_pet_1_pet_type
+            data_type: varchar
+          - name: world_share_pet_1_equipment
+            data_type: jsonb
+          - name: world_share_pet_1_auto_skill
+            data_type: jsonb
+          - name: world_share_pet_1_skill
+            data_type: jsonb
+          - name: world_share_pet_1_date_expire
+            data_type: timestamptz
+          - name: world_share_pet_1_appearance
+            data_type: varchar
+          - name: world_share_pet_1_appearance_icon
+            data_type: varchar
+          - name: world_share_pet_2_name
+            data_type: varchar
+          - name: world_share_pet_2_nickname
+            data_type: varchar
+          - name: world_share_pet_2_icon
+            data_type: varchar
+          - name: world_share_pet_2_description
+            data_type: varchar
+          - name: world_share_pet_2_pet_type
+            data_type: varchar
+          - name: world_share_pet_2_equipment
+            data_type: jsonb
+          - name: world_share_pet_2_auto_skill
+            data_type: jsonb
+          - name: world_share_pet_2_skill
+            data_type: jsonb
+          - name: world_share_pet_2_date_expire
+            data_type: timestamptz
+          - name: world_share_pet_2_appearance
+            data_type: varchar
+          - name: world_share_pet_2_appearance_icon
+            data_type: varchar
+          - name: world_share_pet_3_name
+            data_type: varchar
+          - name: world_share_pet_3_nickname
+            data_type: varchar
+          - name: world_share_pet_3_icon
+            data_type: varchar
+          - name: world_share_pet_3_description
+            data_type: varchar
+          - name: world_share_pet_3_pet_type
+            data_type: varchar
+          - name: world_share_pet_3_equipment
+            data_type: jsonb
+          - name: world_share_pet_3_auto_skill
+            data_type: jsonb
+          - name: world_share_pet_3_skill
+            data_type: jsonb
+          - name: world_share_pet_3_date_expire
+            data_type: timestamptz
+          - name: world_share_pet_3_appearance
+            data_type: varchar
+          - name: world_share_pet_3_appearance_icon
+            data_type: varchar
+          - name: petite_luna_pet_skill
+            data_type: jsonb
+      - name: character_link_skill
+        description: "Character's equipped link skills."
+        columns:
+          - name: date
+            data_type: date
+          - name: ocid
+            data_type: varchar
+          - name: character_class
+            data_type: varchar
+          - name: character_link_skill
+            data_type: jsonb
+          - name: character_link_skill_preset_1
+            data_type: jsonb
+          - name: character_link_skill_preset_2
+            data_type: jsonb
+          - name: character_link_skill_preset_3
+            data_type: jsonb
+          - name: character_owned_link_skill
+            data_type: jsonb
+          - name: character_owned_link_skill_preset_1
+            data_type: jsonb
+          - name: character_owned_link_skill_preset_2
+            data_type: jsonb
+          - name: character_owned_link_skill_preset_3
+            data_type: jsonb
+      - name: character_vmatrix
+        description: "Character's V-Matrix nodes and slots."
+        columns:
+          - name: date
+            data_type: date
+          - name: ocid
+            data_type: varchar
+          - name: character_class
+            data_type: varchar
+          - name: character_v_core_equipment
+            data_type: jsonb
+          - name: character_v_matrix_remain_slot_upgrade_point
+            data_type: bigint
+          - name: character_v_core_equipment_preset_1
+            data_type: jsonb
+          - name: character_v_core_equipment_preset_2
+            data_type: jsonb
+          - name: character_v_core_equipment_preset_3
+            data_type: jsonb
+          - name: character_v_core_equipment_preset_4
+            data_type: jsonb
+          - name: character_v_core_equipment_preset_5
+            data_type: jsonb
+      - name: character_hexamatrix
+        description: "Character's Hexa-Matrix nodes and slots."
+        columns:
+          - name: date
+            data_type: date
+          - name: ocid
+            data_type: varchar
+          - name: character_hexa_core_equipment
+            data_type: jsonb
+      - name: character_hexamatrix_stat
+        description: "Character's configured Hexa-Matrix stats."
+        columns:
+          - name: date
+            data_type: date
+          - name: ocid
+            data_type: varchar
+          - name: character_class
+            data_type: varchar
+          - name: character_hexa_stat_core
+            data_type: jsonb
+          - name: character_hexa_stat_core_2
+            data_type: jsonb
+          - name: character_hexa_stat_core_3
+            data_type: jsonb
+          - name: preset_hexa_stat_core
+            data_type: jsonb
+          - name: preset_hexa_stat_core_2
+            data_type: jsonb
+          - name: preset_hexa_stat_core_3
+            data_type: jsonb
+      - name: character_other_stat
+        description: "Character's other stat-influencing factors (challengers world, event, etc.)."
+        columns:
+          - name: date
+            data_type: date
+          - name: ocid
+            data_type: varchar
+          - name: other_stat
+            data_type: jsonb
+      - name: character_ring_reserve_skill_equipment
+        description: "Character's registered seed ring reserve."
+        columns:
+          - name: date
+            data_type: date
+          - name: ocid
+            data_type: varchar
+          - name: character_class
+            data_type: varchar
+          - name: special_ring_reserve_name
+            data_type: varchar
+          - name: special_ring_reserve_level
+            data_type: bigint
+          - name: special_ring_reserve_icon
+            data_type: varchar
+          - name: special_ring_reserve_description
+            data_type: varchar
+      - name: user_union
+        description: "Union basic info and metadata (world)."
+        columns:
+          - name: date
+            data_type: date
+          - name: ocid
+            data_type: varchar
+          - name: union_level
+            data_type: bigint
+          - name: union_grade
+            data_type: varchar
+          - name: union_artifact_level
+            data_type: bigint
+          - name: union_artifact_exp
+            data_type: bigint
+          - name: union_artifact_point
+            data_type: bigint
+      - name: user_union_raider
+        description: "Union raider stats (world)."
+        columns:
+          - name: date
+            data_type: date
+          - name: ocid
+            data_type: varchar
+          - name: union_raider_stat
+            data_type: jsonb
+          - name: union_occupied_stat
+            data_type: jsonb
+          - name: union_block
+            data_type: jsonb
+          - name: union_inner_stat
+            data_type: jsonb
+          - name: use_preset_no
+            data_type: bigint
+          - name: union_state_stat
+            data_type: jsonb
+          - name: union_state_stat_preset
+            data_type: jsonb
+          - name: union_max_point
+            data_type: bigint
+          - name: union_raider_preset_1
+            data_type: jsonb
+          - name: union_raider_preset_2
+            data_type: jsonb
+          - name: union_raider_preset_3
+            data_type: jsonb
+          - name: union_raider_preset_4
+            data_type: jsonb
+          - name: union_raider_preset_5
+            data_type: jsonb
+      - name: user_union_artifact
+        description: "Union artifact crystal effects (world)."
+        columns:
+          - name: date
+            data_type: date
+          - name: ocid
+            data_type: varchar
+          - name: union_artifact_effect
+            data_type: jsonb
+          - name: union_artifact_crystal
+            data_type: jsonb
+          - name: union_artifact_remain_ap
+            data_type: bigint
+      - name: user_union_champion
+        description: "Union champion characters info."
+        columns:
+          - name: date
+            data_type: date
+          - name: ocid
+            data_type: varchar
+          - name: union_champion
+            data_type: jsonb
+          - name: champion_badge_total_info
+            data_type: jsonb
+          - name: error
+            data_type: jsonb
+      - name: scheduler_character_state
+        description: "Character's scheduler info and metadata."
+        columns:
+          - name: date
+            data_type: date
+          - name: ocid
+            data_type: varchar
+          - name: character_name
+            data_type: varchar
+          - name: world_name
+            data_type: varchar
+          - name: character_level
+            data_type: bigint
+          - name: character_class
+            data_type: varchar
+          - name: daily_contents
+            data_type: jsonb
+          - name: weekly_contents
+            data_type: jsonb
+          - name: boss_contents
+            data_type: jsonb
+          - name: weekly_boss_clear_count
+            data_type: bigint
+          - name: weekly_boss_clear_limit_count
+            data_type: bigint
+      - name: notice
+        description: "Maplestory notices."
+        columns:
+          - name: title
+            data_type: varchar
+          - name: url
+            data_type: varchar
+          - name: notice_id
+            data_type: bigint
+          - name: date
+            data_type: timestamptz
+      - name: notice_detail
+        description: "Maplestory notice details."
+        columns:
+          - name: notice_id
+            data_type: bigint
+          - name: title
+            data_type: varchar
+          - name: url
+            data_type: varchar
+          - name: contents
+            data_type: varchar
+          - name: date
+            data_type: timestamptz
+      - name: notice_update
+        description: "Maplestory update notices."
+        columns:
+          - name: title
+            data_type: varchar
+          - name: url
+            data_type: varchar
+          - name: notice_id
+            data_type: bigint
+          - name: date
+            data_type: timestamptz
+      - name: notice_update_detail
+        description: "Maplestory update notice details."
+        columns:
+          - name: notice_id
+            data_type: bigint
+          - name: title
+            data_type: varchar
+          - name: url
+            data_type: varchar
+          - name: contents
+            data_type: varchar
+          - name: date
+            data_type: timestamptz
+      - name: notice_event
+        description: "Maplestory event notices."
+        columns:
+          - name: title
+            data_type: varchar
+          - name: url
+            data_type: varchar
+          - name: thumbnail_url
+            data_type: varchar
+          - name: notice_id
+            data_type: bigint
+          - name: date
+            data_type: timestamptz
+          - name: date_event_start
+            data_type: timestamptz
+          - name: date_event_end
+            data_type: timestamptz
+      - name: notice_event_detail
+        description: "Maplestory event notice details."
+        columns:
+          - name: notice_id
+            data_type: bigint
+          - name: title
+            data_type: varchar
+          - name: url
+            data_type: varchar
+          - name: contents
+            data_type: varchar
+          - name: date
+            data_type: timestamptz
+          - name: date_event_start
+            data_type: timestamptz
+          - name: date_event_end
+            data_type: timestamptz
+      - name: notice_cashshop
+        description: "Maplestory cashshop notices."
+        columns:
+          - name: title
+            data_type: varchar
+          - name: url
+            data_type: varchar
+          - name: thumbnail_url
+            data_type: varchar
+          - name: notice_id
+            data_type: bigint
+          - name: date
+            data_type: timestamptz
+          - name: date_sale_start
+            data_type: timestamptz
+          - name: date_sale_end
+            data_type: timestamptz
+          - name: ongoing_flag
+            data_type: varchar
+      - name: notice_cashshop_detail
+        description: "Maplestory cashshop notice details."
+        columns:
+          - name: notice_id
+            data_type: bigint
+          - name: title
+            data_type: varchar
+          - name: url
+            data_type: varchar
+          - name: contents
+            data_type: varchar
+          - name: date
+            data_type: timestamptz
+          - name: date_sale_start
+            data_type: timestamptz
+          - name: date_sale_end
+            data_type: timestamptz
+          - name: ongoing_flag
+            data_type: varchar
