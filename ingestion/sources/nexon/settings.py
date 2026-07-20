@@ -14,11 +14,11 @@ REQUEST_DELAY = 0.3  # seconds
 # -------------------------------------------------------------------------------------
 ENDPOINTS = {
     # User 계정 정보 조회
-    "character_list": {
-        "path": "/maplestory/v1/character/list",  # 캐릭터 목록 조회
-    },
     "user_achievement": {
         "path": "/maplestory/v1/user/achievement",  # 업적 정보 조회
+    },
+    "character_list": {
+        "path": "/maplestory/v1/character/list",  # 캐릭터 목록 조회
     },
     # Character 캐릭터 정보 조회
     # "id": {
@@ -151,13 +151,13 @@ ENDPOINTS = {
             "date": "optional",  # 조회 기준일 (KST, YYYY-MM-DD)
         },
     },
-    "character_dojang": {
-        "path": "/maplestory/v1/character/dojang",  # 무릉도장 최고 기록 정보 조회
-        "params": {
-            "ocid": "required",  # 캐릭터 식별자
-            "date": "optional",  # 조회 기준일 (KST, YYYY-MM-DD)
-        },
-    },
+    # "character_dojang": {
+    #     "path": "/maplestory/v1/character/dojang",  # 무릉도장 최고 기록 정보 조회
+    #     "params": {
+    #         "ocid": "required",  # 캐릭터 식별자
+    #         "date": "optional",  # 조회 기준일 (KST, YYYY-MM-DD)
+    #     },
+    # },
     "character_other_stat": {
         "path": "/maplestory/v1/character/other-stat",  # 기타 능력치 영향 요소 정보 조회
         "params": {
