@@ -9,7 +9,7 @@ stg_nexon__character_list as (
         cl ->> 'world_name' as world_name,
         cl ->> 'character_name' as character_name,
         cl ->> 'character_class' as character_class,
-        (cl ->> 'character_level')::int as character_level
+        (cl ->> 'character_level')::integer as character_level
     from character_list,
         lateral jsonb_array_elements(account_list) as al,
         lateral jsonb_array_elements(al -> 'character_list') as cl
