@@ -1,4 +1,4 @@
-.PHONY: up down backend-run ingestion-run transformation-run clean pre-commit drop-schema
+.PHONY: up down backend-run ingestion-run dlt-pipeline-show transformation-run clean pre-commit drop-schema
 
 COMPOSE = docker compose -f infra/docker-compose.yml
 
@@ -29,6 +29,9 @@ backend-run:  ## Run the backend API (dev, auto-reload)
 
 ingestion-run:  ## Run the dlt pipeline
 	cd ingestion && uv run python -m pipelines.nexon_pipeline
+
+dlt-pipeline-show:  ## Launch the dlt pipeline dashboard (marimo)
+	cd ingestion && uv run dlt pipeline nexon show
 
 transformation-run:  ## Run dbt models
 	cd transformation && uv run dbt run --profiles-dir .
