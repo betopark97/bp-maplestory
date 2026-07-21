@@ -1,12 +1,12 @@
-.PHONY: up down backend-run ingestion-run dlt-pipeline-show transformation-run clean pre-commit drop-schema
+.PHONY: help clean pre-commit up down drop-schema backend-run ingestion-run dlt-pipeline-show transformation-run
 
 COMPOSE = docker compose -f infra/docker-compose.yml
 
-up:  ## Start the local dev postgres (detached)
-	$(COMPOSE) up -d --build
+.DEFAULT_GOAL := help
 
-down:  ## Stop the local dev postgres (keeps data)
-	$(COMPOSE) down
+help:  ## Show this help
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) \
+		| awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-20s\033[0m %s\n", $$1, $$2}'
 
 clean:  ## Remove python caches, dbt artifacts, and dangling docker images
 	find . -type d -name '__pycache__' -not -path '*/.venv/*' -exec rm -rf {} + 2>/dev/null || true
@@ -16,6 +16,12 @@ clean:  ## Remove python caches, dbt artifacts, and dangling docker images
 
 pre-commit:  ## Preview pre-commit hooks against all files (are we clean to commit?)
 	pre-commit run --all-files
+
+up:  ## Start the local dev postgres (detached)
+	$(COMPOSE) up -d --build
+
+down:  ## Stop the local dev postgres (keeps data)
+	$(COMPOSE) down
 
 drop-schema:  ## Drop a schema + its dlt staging from the maplestory db (requires SCHEMA=<name>)
 	@test -n "$(SCHEMA)" || { echo "SCHEMA is required, e.g. make drop-schema SCHEMA=nexon"; exit 1; }
