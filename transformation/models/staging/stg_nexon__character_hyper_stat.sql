@@ -4,8 +4,8 @@ with character_hyper_stat as (
 
 hsp1 as (
     select
-        ocid,
         date,
+        ocid,
         hsp1 ->> 'stat_type' as stat_type,
         (hsp1 ->> 'stat_level')::integer as stat_level,
         (hsp1 ->> 'stat_point')::integer as stat_point,
@@ -16,8 +16,8 @@ hsp1 as (
 
 hsp2 as (
     select
-        ocid,
         date,
+        ocid,
         hsp2 ->> 'stat_type' as stat_type,
         (hsp2 ->> 'stat_level')::integer as stat_level,
         (hsp2 ->> 'stat_point')::integer as stat_point,
@@ -28,8 +28,8 @@ hsp2 as (
 
 hsp3 as (
     select
-        ocid,
         date,
+        ocid,
         hsp3 ->> 'stat_type' as stat_type,
         (hsp3 ->> 'stat_level')::integer as stat_level,
         (hsp3 ->> 'stat_point')::integer as stat_point,
@@ -40,8 +40,8 @@ hsp3 as (
 
 hyper_stat_presets as (
     select
-        ocid,
         date,
+        ocid,
         stat_type,
         hsp1.stat_level    as hyper_stat_preset_1_stat_level,
         hsp1.stat_point    as hyper_stat_preset_1_stat_point,

@@ -4,8 +4,8 @@ with character_ability as (
 
 ap1 as (
     select
-        ocid,
         date,
+        ocid,
         (ap1 ->> 'ability_no')::integer as ability_no,
         ap1 ->> 'ability_grade' as ability_grade,
         ap1 ->> 'ability_value' as ability_value
@@ -15,8 +15,8 @@ ap1 as (
 
 ap2 as (
     select
-        ocid,
         date,
+        ocid,
         (ap2 ->> 'ability_no')::integer as ability_no,
         ap2 ->> 'ability_grade' as ability_grade,
         ap2 ->> 'ability_value' as ability_value
@@ -26,8 +26,8 @@ ap2 as (
 
 ap3 as (
     select
-        ocid,
         date,
+        ocid,
         (ap3 ->> 'ability_no')::integer as ability_no,
         ap3 ->> 'ability_grade' as ability_grade,
         ap3 ->> 'ability_value' as ability_value
@@ -37,8 +37,8 @@ ap3 as (
 
 ability_presets as (
     select
-        ocid,
         date,
+        ocid,
         ability_no,
         ap1.ability_grade as ability_preset_1_ability_grade,
         ap1.ability_value as ability_preset_1_ability_value,
