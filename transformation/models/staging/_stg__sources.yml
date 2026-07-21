@@ -46,6 +46,7 @@ sources:
           - name: access_flag
             data_type: varchar
           - name: liberation_quest_clear
+            description: "Whether the character has cleared the Liberation Quest (Black Mage)"
             data_type: varchar
       - name: character_popularity
         description: "Character's popularity metric."
@@ -189,6 +190,10 @@ sources:
           - name: cash_item_equipment_preset_3
             data_type: jsonb
           - name: additional_cash_item_equipment_base
+            description: |-
+              Addtional cash item equipment is for characters like:
+              - Angelic Buster (Dress Up)
+              - Zero (Beta)
             data_type: jsonb
           - name: additional_cash_item_equipment_preset_1
             data_type: jsonb
@@ -215,6 +220,10 @@ sources:
           - name: ocid
             data_type: varchar
           - name: set_effect
+            description: |-
+              The `set_effect_info` is a list of dictionaries that contains the `set_count` and `set_option` that are active.
+              The `set_option_full` is a list of dictionaries that contains ALL the `set_count` and `set_option` that are acquirable.
+              The `total_set_count` is used to determine the maximum active `set_count` and `set_option`.
             data_type: jsonb
       - name: character_beauty_equipment
         description: "Character's beauty equipment (hair, face, skin)."
