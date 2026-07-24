@@ -1,11 +1,15 @@
-with source as (
+with user_achievement as (
     select * from {{ source('nexon', 'user_achievement') }}
 ),
 
-renamed as (
+stg_nexon__user_achievement as (
     select
-        account_list
-    from source
+        al ->> 'account_id' as account_list__account_id,
+        aa ->> 'achievement_name' as account_list__achievement_achieve__achievement_name,
+        aa ->> 'achievement_description' as account_list__achievement_achieve__achievement_description
+    from user_achievement,
+        lateral jsonb_array_elements(account_list) as al,
+        lateral jsonb_array_elements(al -> 'achievement_achieve') as aa
 )
 
-select * from renamed
+select * from stg_nexon__user_achievement
