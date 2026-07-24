@@ -7,9 +7,9 @@ hsp1 as (
         date,
         ocid,
         hsp1 ->> 'stat_type' as stat_type,
-        (hsp1 ->> 'stat_level')::integer as stat_level,
-        (hsp1 ->> 'stat_point')::integer as stat_point,
-        hsp1 ->> 'stat_increase' as stat_increase
+        (hsp1 ->> 'stat_level')::integer as hyper_stat_preset_1__stat_level,
+        (hsp1 ->> 'stat_point')::integer as hyper_stat_preset_1__stat_point,
+        hsp1 ->> 'stat_increase' as hyper_stat_preset_1__stat_increase
     from character_hyper_stat,
         lateral jsonb_array_elements(hyper_stat_preset_1) as hsp1
 ),
@@ -19,9 +19,9 @@ hsp2 as (
         date,
         ocid,
         hsp2 ->> 'stat_type' as stat_type,
-        (hsp2 ->> 'stat_level')::integer as stat_level,
-        (hsp2 ->> 'stat_point')::integer as stat_point,
-        hsp2 ->> 'stat_increase' as stat_increase
+        (hsp2 ->> 'stat_level')::integer as hyper_stat_preset_2__stat_level,
+        (hsp2 ->> 'stat_point')::integer as hyper_stat_preset_2__stat_point,
+        hsp2 ->> 'stat_increase' as hyper_stat_preset_2__stat_increase
     from character_hyper_stat,
         lateral jsonb_array_elements(hyper_stat_preset_2) as hsp2
 ),
@@ -31,9 +31,9 @@ hsp3 as (
         date,
         ocid,
         hsp3 ->> 'stat_type' as stat_type,
-        (hsp3 ->> 'stat_level')::integer as stat_level,
-        (hsp3 ->> 'stat_point')::integer as stat_point,
-        hsp3 ->> 'stat_increase' as stat_increase
+        (hsp3 ->> 'stat_level')::integer as hyper_stat_preset_3__stat_level,
+        (hsp3 ->> 'stat_point')::integer as hyper_stat_preset_3__stat_point,
+        hsp3 ->> 'stat_increase' as hyper_stat_preset_3__stat_increase
     from character_hyper_stat,
         lateral jsonb_array_elements(hyper_stat_preset_3) as hsp3
 ),
@@ -43,15 +43,15 @@ hyper_stat_presets as (
         date,
         ocid,
         stat_type,
-        hsp1.stat_level    as hyper_stat_preset_1_stat_level,
-        hsp1.stat_point    as hyper_stat_preset_1_stat_point,
-        hsp1.stat_increase as hyper_stat_preset_1_stat_increase,
-        hsp2.stat_level    as hyper_stat_preset_2_stat_level,
-        hsp2.stat_point    as hyper_stat_preset_2_stat_point,
-        hsp2.stat_increase as hyper_stat_preset_2_stat_increase,
-        hsp3.stat_level    as hyper_stat_preset_3_stat_level,
-        hsp3.stat_point    as hyper_stat_preset_3_stat_point,
-        hsp3.stat_increase as hyper_stat_preset_3_stat_increase
+        hsp1.hyper_stat_preset_1__stat_level,
+        hsp1.hyper_stat_preset_1__stat_point,
+        hsp1.hyper_stat_preset_1__stat_increase,
+        hsp2.hyper_stat_preset_2__stat_level,
+        hsp2.hyper_stat_preset_2__stat_point,
+        hsp2.hyper_stat_preset_2__stat_increase,
+        hsp3.hyper_stat_preset_3__stat_level,
+        hsp3.hyper_stat_preset_3__stat_point,
+        hsp3.hyper_stat_preset_3__stat_increase
     from hsp1
     full join hsp2 using (ocid, date, stat_type)
     full join hsp3 using (ocid, date, stat_type)
@@ -65,17 +65,17 @@ stg_nexon__character_hyper_stat as (
         chs.use_preset_no::integer,
         chs.use_available_hyper_stat::integer,
         hsp.stat_type,
-        hsp.hyper_stat_preset_1_stat_level,
-        hsp.hyper_stat_preset_1_stat_point,
-        hsp.hyper_stat_preset_1_stat_increase,
+        hsp.hyper_stat_preset_1__stat_level,
+        hsp.hyper_stat_preset_1__stat_point,
+        hsp.hyper_stat_preset_1__stat_increase,
         chs.hyper_stat_preset_1_remain_point::integer,
-        hsp.hyper_stat_preset_2_stat_level,
-        hsp.hyper_stat_preset_2_stat_point,
-        hsp.hyper_stat_preset_2_stat_increase,
+        hsp.hyper_stat_preset_2__stat_level,
+        hsp.hyper_stat_preset_2__stat_point,
+        hsp.hyper_stat_preset_2__stat_increase,
         chs.hyper_stat_preset_2_remain_point::integer,
-        hsp.hyper_stat_preset_3_stat_level,
-        hsp.hyper_stat_preset_3_stat_point,
-        hsp.hyper_stat_preset_3_stat_increase,
+        hsp.hyper_stat_preset_3__stat_level,
+        hsp.hyper_stat_preset_3__stat_point,
+        hsp.hyper_stat_preset_3__stat_increase,
         chs.hyper_stat_preset_3_remain_point::integer
     from character_hyper_stat as chs
     left join hyper_stat_presets as hsp
