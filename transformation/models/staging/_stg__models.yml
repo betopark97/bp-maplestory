@@ -1,18 +1,2241 @@
 version: 2
 
 models:
+  - name: stg_nexon__user_achievement
+    columns:
+      - name: account_list__account_id
+        data_type: text
+      - name: account_list__achievement_achieve__achievement_name
+        data_type: text
+      - name: account_list__achievement_achieve__achievement_description
+        data_type: text
   - name: stg_nexon__character_list
     description: "A list of characters' metadata."
     columns:
-      - name: account_id
+      - name: account_list__account_id
+        description: "Nexon account ID."
         data_type: text
+        data_tests:
+          - not_null
       - name: ocid
+        description: "Character ID."
         data_type: text
-      - name: world_name
+        data_tests:
+          - not_null
+          - unique
+      - name: account_list__character_list__world_name
+        description: "Character's world name."
         data_type: text
+      - name: account_list__character_list__character_name
+        description: "Character's name."
+        data_type: text
+      - name: account_list__character_list__character_class
+        description: "Character's class."
+        data_type: text
+      - name: account_list__character_list__character_level
+        description: "Character's level."
+        data_type: integer
+  - name: stg_nexon__character_basic
+    columns:
+      - name: date
+        data_type: date
+      - name: ocid
+        data_type: varchar
       - name: character_name
+        data_type: varchar
+      - name: world_name
+        data_type: varchar
+      - name: character_gender
+        data_type: varchar
+      - name: character_class
+        data_type: varchar
+      - name: character_class_level
+        data_type: integer
+      - name: character_level
+        data_type: integer
+      - name: character_exp
+        data_type: bigint
+      - name: character_exp_rate
+        data_type: double precision
+      - name: character_image
+        data_type: varchar
+      - name: character_date_create
+        data_type: timestamptz
+      - name: access_flag
+        data_type: boolean
+      - name: liberation_quest_clear
+        data_type: integer
+  - name: stg_nexon__character_popularity
+    columns:
+      - name: date
+        data_type: date
+      - name: ocid
+        data_type: varchar
+      - name: popularity
+        data_type: integer
+  - name: stg_nexon__character_stat
+    columns:
+      - name: date
+        data_type: date
+      - name: ocid
+        data_type: varchar
+      - name: character_class
+        data_type: varchar
+      - name: final_stat__stat_name
+        data_type: text
+      - name: final_stat__stat_value
+        data_type: double precision
+      - name: remain_ap
+        data_type: integer
+  - name: stg_nexon__character_hyper_stat
+    columns:
+      - name: date
+        data_type: date
+      - name: ocid
+        data_type: varchar
+      - name: character_class
+        data_type: varchar
+      - name: use_preset_no
+        data_type: integer
+      - name: use_available_hyper_stat
+        data_type: integer
+      - name: stat_type
+        data_type: text
+      - name: hyper_stat_preset_1__stat_level
+        data_type: integer
+      - name: hyper_stat_preset_1__stat_point
+        data_type: integer
+      - name: hyper_stat_preset_1__stat_increase
+        data_type: text
+      - name: hyper_stat_preset_1_remain_point
+        data_type: integer
+      - name: hyper_stat_preset_2__stat_level
+        data_type: integer
+      - name: hyper_stat_preset_2__stat_point
+        data_type: integer
+      - name: hyper_stat_preset_2__stat_increase
+        data_type: text
+      - name: hyper_stat_preset_2_remain_point
+        data_type: integer
+      - name: hyper_stat_preset_3__stat_level
+        data_type: integer
+      - name: hyper_stat_preset_3__stat_point
+        data_type: integer
+      - name: hyper_stat_preset_3__stat_increase
+        data_type: text
+      - name: hyper_stat_preset_3_remain_point
+        data_type: integer
+  - name: stg_nexon__character_propensity
+    columns:
+      - name: date
+        data_type: date
+      - name: ocid
+        data_type: varchar
+      - name: charisma_level
+        data_type: integer
+      - name: sensibility_level
+        data_type: integer
+      - name: insight_level
+        data_type: integer
+      - name: willingness_level
+        data_type: integer
+      - name: handicraft_level
+        data_type: integer
+      - name: charm_level
+        data_type: integer
+  - name: stg_nexon__character_ability
+    columns:
+      - name: date
+        data_type: date
+      - name: ocid
+        data_type: varchar
+      - name: ability_grade
+        data_type: varchar
+      - name: remain_fame
+        data_type: bigint
+      - name: preset_no
+        data_type: bigint
+      - name: ability_no
+        data_type: integer
+      - name: ability_preset_1__ability_preset_grade
+        data_type: text
+      - name: ability_preset_1__ability_info__ability_grade
+        data_type: text
+      - name: ability_preset_1__ability_info__ability_value
+        data_type: text
+      - name: ability_preset_2__ability_preset_grade
+        data_type: text
+      - name: ability_preset_2__ability_info__ability_grade
+        data_type: text
+      - name: ability_preset_2__ability_info__ability_value
+        data_type: text
+      - name: ability_preset_3__ability_preset_grade
+        data_type: text
+      - name: ability_preset_3__ability_info__ability_grade
+        data_type: text
+      - name: ability_preset_3__ability_info__ability_value
+        data_type: text
+  - name: stg_nexon__character_item_equipment
+    columns:
+      - name: date
+        data_type: date
+      - name: ocid
+        data_type: varchar
+      - name: character_gender
+        data_type: varchar
+      - name: character_class
+        data_type: varchar
+      - name: preset_no
+        data_type: bigint
+      - name: item_equipment_slot
+        data_type: text
+      - name: item_equipment_part
+        data_type: text
+      - name: item_equipment_preset_1__icon
+        data_type: text
+      - name: item_equipment_preset_1__name
+        data_type: text
+      - name: item_equipment_preset_1__soul_name
+        data_type: text
+      - name: item_equipment_preset_1__starforce
+        data_type: integer
+      - name: item_equipment_preset_1__growth_exp
+        data_type: integer
+      - name: item_equipment_preset_1__date_expire
+        data_type: text
+      - name: item_equipment_preset_1__gender
+        data_type: text
+      - name: item_equipment_preset_1__soul_option
+        data_type: text
+      - name: item_equipment_preset_1__growth_level
+        data_type: integer
+      - name: item_equipment_preset_1__cuttable_count
+        data_type: integer
+      - name: item_equipment_preset_1__freestyle_flag
+        data_type: text
+      - name: item_equipment_preset_1__scroll_upgrade
+        data_type: integer
+      - name: item_equipment_preset_1__add_option__dex
+        data_type: integer
+      - name: item_equipment_preset_1__add_option__int
+        data_type: integer
+      - name: item_equipment_preset_1__add_option__luk
+        data_type: integer
+      - name: item_equipment_preset_1__add_option__str
+        data_type: integer
+      - name: item_equipment_preset_1__add_option__jump
+        data_type: integer
+      - name: item_equipment_preset_1__add_option__armor
+        data_type: integer
+      - name: item_equipment_preset_1__add_option__speed
+        data_type: integer
+      - name: item_equipment_preset_1__add_option__damage
+        data_type: integer
+      - name: item_equipment_preset_1__add_option__max_hp
+        data_type: integer
+      - name: item_equipment_preset_1__add_option__max_mp
+        data_type: integer
+      - name: item_equipment_preset_1__add_option__all_stat
+        data_type: integer
+      - name: item_equipment_preset_1__add_option__boss_damage
+        data_type: integer
+      - name: item_equipment_preset_1__add_option__magic_power
+        data_type: integer
+      - name: item_equipment_preset_1__add_option__attack_power
+        data_type: integer
+      - name: item_equipment_preset_1__add_option__equipment_level_decrease
+        data_type: integer
+      - name: item_equipment_preset_1__etc_option__dex
+        data_type: integer
+      - name: item_equipment_preset_1__etc_option__int
+        data_type: integer
+      - name: item_equipment_preset_1__etc_option__luk
+        data_type: integer
+      - name: item_equipment_preset_1__etc_option__str
+        data_type: integer
+      - name: item_equipment_preset_1__etc_option__jump
+        data_type: integer
+      - name: item_equipment_preset_1__etc_option__armor
+        data_type: integer
+      - name: item_equipment_preset_1__etc_option__speed
+        data_type: integer
+      - name: item_equipment_preset_1__etc_option__max_hp
+        data_type: integer
+      - name: item_equipment_preset_1__etc_option__max_mp
+        data_type: integer
+      - name: item_equipment_preset_1__etc_option__magic_power
+        data_type: integer
+      - name: item_equipment_preset_1__etc_option__attack_power
+        data_type: integer
+      - name: item_equipment_preset_1__shape_icon
+        data_type: text
+      - name: item_equipment_preset_1__shape_name
+        data_type: text
+      - name: item_equipment_preset_1__base_option__dex
+        data_type: integer
+      - name: item_equipment_preset_1__base_option__int
+        data_type: integer
+      - name: item_equipment_preset_1__base_option__luk
+        data_type: integer
+      - name: item_equipment_preset_1__base_option__str
+        data_type: integer
+      - name: item_equipment_preset_1__base_option__jump
+        data_type: integer
+      - name: item_equipment_preset_1__base_option__armor
+        data_type: integer
+      - name: item_equipment_preset_1__base_option__speed
+        data_type: integer
+      - name: item_equipment_preset_1__base_option__max_hp
+        data_type: integer
+      - name: item_equipment_preset_1__base_option__max_mp
+        data_type: integer
+      - name: item_equipment_preset_1__base_option__all_stat
+        data_type: integer
+      - name: item_equipment_preset_1__base_option__boss_damage
+        data_type: integer
+      - name: item_equipment_preset_1__base_option__magic_power
+        data_type: integer
+      - name: item_equipment_preset_1__base_option__max_hp_rate
+        data_type: integer
+      - name: item_equipment_preset_1__base_option__max_mp_rate
+        data_type: integer
+      - name: item_equipment_preset_1__base_option__attack_power
+        data_type: integer
+      - name: item_equipment_preset_1__base_option__base_equipment_level
+        data_type: integer
+      - name: item_equipment_preset_1__base_option__ignore_monster_armor
+        data_type: integer
+      - name: item_equipment_preset_1__description
+        data_type: text
+      - name: item_equipment_preset_1__total_option__dex
+        data_type: integer
+      - name: item_equipment_preset_1__total_option__int
+        data_type: integer
+      - name: item_equipment_preset_1__total_option__luk
+        data_type: integer
+      - name: item_equipment_preset_1__total_option__str
+        data_type: integer
+      - name: item_equipment_preset_1__total_option__jump
+        data_type: integer
+      - name: item_equipment_preset_1__total_option__armor
+        data_type: integer
+      - name: item_equipment_preset_1__total_option__speed
+        data_type: integer
+      - name: item_equipment_preset_1__total_option__damage
+        data_type: integer
+      - name: item_equipment_preset_1__total_option__max_hp
+        data_type: integer
+      - name: item_equipment_preset_1__total_option__max_mp
+        data_type: integer
+      - name: item_equipment_preset_1__total_option__all_stat
+        data_type: integer
+      - name: item_equipment_preset_1__total_option__boss_damage
+        data_type: integer
+      - name: item_equipment_preset_1__total_option__magic_power
+        data_type: integer
+      - name: item_equipment_preset_1__total_option__max_hp_rate
+        data_type: integer
+      - name: item_equipment_preset_1__total_option__max_mp_rate
+        data_type: integer
+      - name: item_equipment_preset_1__total_option__attack_power
+        data_type: integer
+      - name: item_equipment_preset_1__total_option__ignore_monster_armor
+        data_type: integer
+      - name: item_equipment_preset_1__total_option__equipment_level_decrease
+        data_type: integer
+      - name: item_equipment_preset_1__golden_hammer_flag
+        data_type: text
+      - name: item_equipment_preset_1__potential_option_1
+        data_type: text
+      - name: item_equipment_preset_1__potential_option_2
+        data_type: text
+      - name: item_equipment_preset_1__potential_option_3
+        data_type: text
+      - name: item_equipment_preset_1__special_ring_level
+        data_type: integer
+      - name: item_equipment_preset_1__starforce_option__dex
+        data_type: integer
+      - name: item_equipment_preset_1__starforce_option__int
+        data_type: integer
+      - name: item_equipment_preset_1__starforce_option__luk
+        data_type: integer
+      - name: item_equipment_preset_1__starforce_option__str
+        data_type: integer
+      - name: item_equipment_preset_1__starforce_option__jump
+        data_type: integer
+      - name: item_equipment_preset_1__starforce_option__armor
+        data_type: integer
+      - name: item_equipment_preset_1__starforce_option__speed
+        data_type: integer
+      - name: item_equipment_preset_1__starforce_option__max_hp
+        data_type: integer
+      - name: item_equipment_preset_1__starforce_option__max_mp
+        data_type: integer
+      - name: item_equipment_preset_1__starforce_option__magic_power
+        data_type: integer
+      - name: item_equipment_preset_1__starforce_option__attack_power
+        data_type: integer
+      - name: item_equipment_preset_1__potential_option_flag
+        data_type: text
+      - name: item_equipment_preset_1__starforce_scroll_flag
+        data_type: text
+      - name: item_equipment_preset_1__potential_option_grade
+        data_type: text
+      - name: item_equipment_preset_1__exceptional_option__dex
+        data_type: integer
+      - name: item_equipment_preset_1__exceptional_option__int
+        data_type: integer
+      - name: item_equipment_preset_1__exceptional_option__luk
+        data_type: integer
+      - name: item_equipment_preset_1__exceptional_option__str
+        data_type: integer
+      - name: item_equipment_preset_1__exceptional_option__max_hp
+        data_type: integer
+      - name: item_equipment_preset_1__exceptional_option__max_mp
+        data_type: integer
+      - name: item_equipment_preset_1__exceptional_option__magic_power
+        data_type: integer
+      - name: item_equipment_preset_1__exceptional_option__attack_power
+        data_type: integer
+      - name: item_equipment_preset_1__exceptional_option__exceptional_upgrad
+        data_type: integer
+      - name: item_equipment_preset_1__scroll_resilience_count
+        data_type: integer
+      - name: item_equipment_preset_1__equipment_level_increase
+        data_type: integer
+      - name: item_equipment_preset_1__scroll_upgradeable_count
+        data_type: integer
+      - name: item_equipment_preset_1__additional_potential_option_1
+        data_type: text
+      - name: item_equipment_preset_1__additional_potential_option_2
+        data_type: text
+      - name: item_equipment_preset_1__additional_potential_option_3
+        data_type: text
+      - name: item_equipment_preset_1__additional_potential_option_flag
+        data_type: text
+      - name: item_equipment_preset_1__additional_potential_option_grade
+        data_type: text
+      - name: item_equipment_preset_2__icon
+        data_type: text
+      - name: item_equipment_preset_2__name
+        data_type: text
+      - name: item_equipment_preset_2__soul_name
+        data_type: text
+      - name: item_equipment_preset_2__starforce
+        data_type: integer
+      - name: item_equipment_preset_2__growth_exp
+        data_type: integer
+      - name: item_equipment_preset_2__date_expire
+        data_type: text
+      - name: item_equipment_preset_2__gender
+        data_type: text
+      - name: item_equipment_preset_2__soul_option
+        data_type: text
+      - name: item_equipment_preset_2__growth_level
+        data_type: integer
+      - name: item_equipment_preset_2__cuttable_count
+        data_type: integer
+      - name: item_equipment_preset_2__freestyle_flag
+        data_type: text
+      - name: item_equipment_preset_2__scroll_upgrade
+        data_type: integer
+      - name: item_equipment_preset_2__add_option__dex
+        data_type: integer
+      - name: item_equipment_preset_2__add_option__int
+        data_type: integer
+      - name: item_equipment_preset_2__add_option__luk
+        data_type: integer
+      - name: item_equipment_preset_2__add_option__str
+        data_type: integer
+      - name: item_equipment_preset_2__add_option__jump
+        data_type: integer
+      - name: item_equipment_preset_2__add_option__armor
+        data_type: integer
+      - name: item_equipment_preset_2__add_option__speed
+        data_type: integer
+      - name: item_equipment_preset_2__add_option__damage
+        data_type: integer
+      - name: item_equipment_preset_2__add_option__max_hp
+        data_type: integer
+      - name: item_equipment_preset_2__add_option__max_mp
+        data_type: integer
+      - name: item_equipment_preset_2__add_option__all_stat
+        data_type: integer
+      - name: item_equipment_preset_2__add_option__boss_damage
+        data_type: integer
+      - name: item_equipment_preset_2__add_option__magic_power
+        data_type: integer
+      - name: item_equipment_preset_2__add_option__attack_power
+        data_type: integer
+      - name: item_equipment_preset_2__add_option__equipment_level_decrease
+        data_type: integer
+      - name: item_equipment_preset_2__etc_option__dex
+        data_type: integer
+      - name: item_equipment_preset_2__etc_option__int
+        data_type: integer
+      - name: item_equipment_preset_2__etc_option__luk
+        data_type: integer
+      - name: item_equipment_preset_2__etc_option__str
+        data_type: integer
+      - name: item_equipment_preset_2__etc_option__jump
+        data_type: integer
+      - name: item_equipment_preset_2__etc_option__armor
+        data_type: integer
+      - name: item_equipment_preset_2__etc_option__speed
+        data_type: integer
+      - name: item_equipment_preset_2__etc_option__max_hp
+        data_type: integer
+      - name: item_equipment_preset_2__etc_option__max_mp
+        data_type: integer
+      - name: item_equipment_preset_2__etc_option__magic_power
+        data_type: integer
+      - name: item_equipment_preset_2__etc_option__attack_power
+        data_type: integer
+      - name: item_equipment_preset_2__shape_icon
+        data_type: text
+      - name: item_equipment_preset_2__shape_name
+        data_type: text
+      - name: item_equipment_preset_2__base_option__dex
+        data_type: integer
+      - name: item_equipment_preset_2__base_option__int
+        data_type: integer
+      - name: item_equipment_preset_2__base_option__luk
+        data_type: integer
+      - name: item_equipment_preset_2__base_option__str
+        data_type: integer
+      - name: item_equipment_preset_2__base_option__jump
+        data_type: integer
+      - name: item_equipment_preset_2__base_option__armor
+        data_type: integer
+      - name: item_equipment_preset_2__base_option__speed
+        data_type: integer
+      - name: item_equipment_preset_2__base_option__max_hp
+        data_type: integer
+      - name: item_equipment_preset_2__base_option__max_mp
+        data_type: integer
+      - name: item_equipment_preset_2__base_option__all_stat
+        data_type: integer
+      - name: item_equipment_preset_2__base_option__boss_damage
+        data_type: integer
+      - name: item_equipment_preset_2__base_option__magic_power
+        data_type: integer
+      - name: item_equipment_preset_2__base_option__max_hp_rate
+        data_type: integer
+      - name: item_equipment_preset_2__base_option__max_mp_rate
+        data_type: integer
+      - name: item_equipment_preset_2__base_option__attack_power
+        data_type: integer
+      - name: item_equipment_preset_2__base_option__base_equipment_level
+        data_type: integer
+      - name: item_equipment_preset_2__base_option__ignore_monster_armor
+        data_type: integer
+      - name: item_equipment_preset_2__description
+        data_type: text
+      - name: item_equipment_preset_2__total_option__dex
+        data_type: integer
+      - name: item_equipment_preset_2__total_option__int
+        data_type: integer
+      - name: item_equipment_preset_2__total_option__luk
+        data_type: integer
+      - name: item_equipment_preset_2__total_option__str
+        data_type: integer
+      - name: item_equipment_preset_2__total_option__jump
+        data_type: integer
+      - name: item_equipment_preset_2__total_option__armor
+        data_type: integer
+      - name: item_equipment_preset_2__total_option__speed
+        data_type: integer
+      - name: item_equipment_preset_2__total_option__damage
+        data_type: integer
+      - name: item_equipment_preset_2__total_option__max_hp
+        data_type: integer
+      - name: item_equipment_preset_2__total_option__max_mp
+        data_type: integer
+      - name: item_equipment_preset_2__total_option__all_stat
+        data_type: integer
+      - name: item_equipment_preset_2__total_option__boss_damage
+        data_type: integer
+      - name: item_equipment_preset_2__total_option__magic_power
+        data_type: integer
+      - name: item_equipment_preset_2__total_option__max_hp_rate
+        data_type: integer
+      - name: item_equipment_preset_2__total_option__max_mp_rate
+        data_type: integer
+      - name: item_equipment_preset_2__total_option__attack_power
+        data_type: integer
+      - name: item_equipment_preset_2__total_option__ignore_monster_armor
+        data_type: integer
+      - name: item_equipment_preset_2__total_option__equipment_level_decrease
+        data_type: integer
+      - name: item_equipment_preset_2__golden_hammer_flag
+        data_type: text
+      - name: item_equipment_preset_2__potential_option_1
+        data_type: text
+      - name: item_equipment_preset_2__potential_option_2
+        data_type: text
+      - name: item_equipment_preset_2__potential_option_3
+        data_type: text
+      - name: item_equipment_preset_2__special_ring_level
+        data_type: integer
+      - name: item_equipment_preset_2__starforce_option__dex
+        data_type: integer
+      - name: item_equipment_preset_2__starforce_option__int
+        data_type: integer
+      - name: item_equipment_preset_2__starforce_option__luk
+        data_type: integer
+      - name: item_equipment_preset_2__starforce_option__str
+        data_type: integer
+      - name: item_equipment_preset_2__starforce_option__jump
+        data_type: integer
+      - name: item_equipment_preset_2__starforce_option__armor
+        data_type: integer
+      - name: item_equipment_preset_2__starforce_option__speed
+        data_type: integer
+      - name: item_equipment_preset_2__starforce_option__max_hp
+        data_type: integer
+      - name: item_equipment_preset_2__starforce_option__max_mp
+        data_type: integer
+      - name: item_equipment_preset_2__starforce_option__magic_power
+        data_type: integer
+      - name: item_equipment_preset_2__starforce_option__attack_power
+        data_type: integer
+      - name: item_equipment_preset_2__potential_option_flag
+        data_type: text
+      - name: item_equipment_preset_2__starforce_scroll_flag
+        data_type: text
+      - name: item_equipment_preset_2__potential_option_grade
+        data_type: text
+      - name: item_equipment_preset_2__exceptional_option__dex
+        data_type: integer
+      - name: item_equipment_preset_2__exceptional_option__int
+        data_type: integer
+      - name: item_equipment_preset_2__exceptional_option__luk
+        data_type: integer
+      - name: item_equipment_preset_2__exceptional_option__str
+        data_type: integer
+      - name: item_equipment_preset_2__exceptional_option__max_hp
+        data_type: integer
+      - name: item_equipment_preset_2__exceptional_option__max_mp
+        data_type: integer
+      - name: item_equipment_preset_2__exceptional_option__magic_power
+        data_type: integer
+      - name: item_equipment_preset_2__exceptional_option__attack_power
+        data_type: integer
+      - name: item_equipment_preset_2__exceptional_option__exceptional_upgrad
+        data_type: integer
+      - name: item_equipment_preset_2__scroll_resilience_count
+        data_type: integer
+      - name: item_equipment_preset_2__equipment_level_increase
+        data_type: integer
+      - name: item_equipment_preset_2__scroll_upgradeable_count
+        data_type: integer
+      - name: item_equipment_preset_2__additional_potential_option_1
+        data_type: text
+      - name: item_equipment_preset_2__additional_potential_option_2
+        data_type: text
+      - name: item_equipment_preset_2__additional_potential_option_3
+        data_type: text
+      - name: item_equipment_preset_2__additional_potential_option_flag
+        data_type: text
+      - name: item_equipment_preset_2__additional_potential_option_grade
+        data_type: text
+      - name: item_equipment_preset_3__icon
+        data_type: text
+      - name: item_equipment_preset_3__name
+        data_type: text
+      - name: item_equipment_preset_3__soul_name
+        data_type: text
+      - name: item_equipment_preset_3__starforce
+        data_type: integer
+      - name: item_equipment_preset_3__growth_exp
+        data_type: integer
+      - name: item_equipment_preset_3__date_expire
+        data_type: text
+      - name: item_equipment_preset_3__gender
+        data_type: text
+      - name: item_equipment_preset_3__soul_option
+        data_type: text
+      - name: item_equipment_preset_3__growth_level
+        data_type: integer
+      - name: item_equipment_preset_3__cuttable_count
+        data_type: integer
+      - name: item_equipment_preset_3__freestyle_flag
+        data_type: text
+      - name: item_equipment_preset_3__scroll_upgrade
+        data_type: integer
+      - name: item_equipment_preset_3__add_option__dex
+        data_type: integer
+      - name: item_equipment_preset_3__add_option__int
+        data_type: integer
+      - name: item_equipment_preset_3__add_option__luk
+        data_type: integer
+      - name: item_equipment_preset_3__add_option__str
+        data_type: integer
+      - name: item_equipment_preset_3__add_option__jump
+        data_type: integer
+      - name: item_equipment_preset_3__add_option__armor
+        data_type: integer
+      - name: item_equipment_preset_3__add_option__speed
+        data_type: integer
+      - name: item_equipment_preset_3__add_option__damage
+        data_type: integer
+      - name: item_equipment_preset_3__add_option__max_hp
+        data_type: integer
+      - name: item_equipment_preset_3__add_option__max_mp
+        data_type: integer
+      - name: item_equipment_preset_3__add_option__all_stat
+        data_type: integer
+      - name: item_equipment_preset_3__add_option__boss_damage
+        data_type: integer
+      - name: item_equipment_preset_3__add_option__magic_power
+        data_type: integer
+      - name: item_equipment_preset_3__add_option__attack_power
+        data_type: integer
+      - name: item_equipment_preset_3__add_option__equipment_level_decrease
+        data_type: integer
+      - name: item_equipment_preset_3__etc_option__dex
+        data_type: integer
+      - name: item_equipment_preset_3__etc_option__int
+        data_type: integer
+      - name: item_equipment_preset_3__etc_option__luk
+        data_type: integer
+      - name: item_equipment_preset_3__etc_option__str
+        data_type: integer
+      - name: item_equipment_preset_3__etc_option__jump
+        data_type: integer
+      - name: item_equipment_preset_3__etc_option__armor
+        data_type: integer
+      - name: item_equipment_preset_3__etc_option__speed
+        data_type: integer
+      - name: item_equipment_preset_3__etc_option__max_hp
+        data_type: integer
+      - name: item_equipment_preset_3__etc_option__max_mp
+        data_type: integer
+      - name: item_equipment_preset_3__etc_option__magic_power
+        data_type: integer
+      - name: item_equipment_preset_3__etc_option__attack_power
+        data_type: integer
+      - name: item_equipment_preset_3__shape_icon
+        data_type: text
+      - name: item_equipment_preset_3__shape_name
+        data_type: text
+      - name: item_equipment_preset_3__base_option__dex
+        data_type: integer
+      - name: item_equipment_preset_3__base_option__int
+        data_type: integer
+      - name: item_equipment_preset_3__base_option__luk
+        data_type: integer
+      - name: item_equipment_preset_3__base_option__str
+        data_type: integer
+      - name: item_equipment_preset_3__base_option__jump
+        data_type: integer
+      - name: item_equipment_preset_3__base_option__armor
+        data_type: integer
+      - name: item_equipment_preset_3__base_option__speed
+        data_type: integer
+      - name: item_equipment_preset_3__base_option__max_hp
+        data_type: integer
+      - name: item_equipment_preset_3__base_option__max_mp
+        data_type: integer
+      - name: item_equipment_preset_3__base_option__all_stat
+        data_type: integer
+      - name: item_equipment_preset_3__base_option__boss_damage
+        data_type: integer
+      - name: item_equipment_preset_3__base_option__magic_power
+        data_type: integer
+      - name: item_equipment_preset_3__base_option__max_hp_rate
+        data_type: integer
+      - name: item_equipment_preset_3__base_option__max_mp_rate
+        data_type: integer
+      - name: item_equipment_preset_3__base_option__attack_power
+        data_type: integer
+      - name: item_equipment_preset_3__base_option__base_equipment_level
+        data_type: integer
+      - name: item_equipment_preset_3__base_option__ignore_monster_armor
+        data_type: integer
+      - name: item_equipment_preset_3__description
+        data_type: text
+      - name: item_equipment_preset_3__total_option__dex
+        data_type: integer
+      - name: item_equipment_preset_3__total_option__int
+        data_type: integer
+      - name: item_equipment_preset_3__total_option__luk
+        data_type: integer
+      - name: item_equipment_preset_3__total_option__str
+        data_type: integer
+      - name: item_equipment_preset_3__total_option__jump
+        data_type: integer
+      - name: item_equipment_preset_3__total_option__armor
+        data_type: integer
+      - name: item_equipment_preset_3__total_option__speed
+        data_type: integer
+      - name: item_equipment_preset_3__total_option__damage
+        data_type: integer
+      - name: item_equipment_preset_3__total_option__max_hp
+        data_type: integer
+      - name: item_equipment_preset_3__total_option__max_mp
+        data_type: integer
+      - name: item_equipment_preset_3__total_option__all_stat
+        data_type: integer
+      - name: item_equipment_preset_3__total_option__boss_damage
+        data_type: integer
+      - name: item_equipment_preset_3__total_option__magic_power
+        data_type: integer
+      - name: item_equipment_preset_3__total_option__max_hp_rate
+        data_type: integer
+      - name: item_equipment_preset_3__total_option__max_mp_rate
+        data_type: integer
+      - name: item_equipment_preset_3__total_option__attack_power
+        data_type: integer
+      - name: item_equipment_preset_3__total_option__ignore_monster_armor
+        data_type: integer
+      - name: item_equipment_preset_3__total_option__equipment_level_decrease
+        data_type: integer
+      - name: item_equipment_preset_3__golden_hammer_flag
+        data_type: text
+      - name: item_equipment_preset_3__potential_option_1
+        data_type: text
+      - name: item_equipment_preset_3__potential_option_2
+        data_type: text
+      - name: item_equipment_preset_3__potential_option_3
+        data_type: text
+      - name: item_equipment_preset_3__special_ring_level
+        data_type: integer
+      - name: item_equipment_preset_3__starforce_option__dex
+        data_type: integer
+      - name: item_equipment_preset_3__starforce_option__int
+        data_type: integer
+      - name: item_equipment_preset_3__starforce_option__luk
+        data_type: integer
+      - name: item_equipment_preset_3__starforce_option__str
+        data_type: integer
+      - name: item_equipment_preset_3__starforce_option__jump
+        data_type: integer
+      - name: item_equipment_preset_3__starforce_option__armor
+        data_type: integer
+      - name: item_equipment_preset_3__starforce_option__speed
+        data_type: integer
+      - name: item_equipment_preset_3__starforce_option__max_hp
+        data_type: integer
+      - name: item_equipment_preset_3__starforce_option__max_mp
+        data_type: integer
+      - name: item_equipment_preset_3__starforce_option__magic_power
+        data_type: integer
+      - name: item_equipment_preset_3__starforce_option__attack_power
+        data_type: integer
+      - name: item_equipment_preset_3__potential_option_flag
+        data_type: text
+      - name: item_equipment_preset_3__starforce_scroll_flag
+        data_type: text
+      - name: item_equipment_preset_3__potential_option_grade
+        data_type: text
+      - name: item_equipment_preset_3__exceptional_option__dex
+        data_type: integer
+      - name: item_equipment_preset_3__exceptional_option__int
+        data_type: integer
+      - name: item_equipment_preset_3__exceptional_option__luk
+        data_type: integer
+      - name: item_equipment_preset_3__exceptional_option__str
+        data_type: integer
+      - name: item_equipment_preset_3__exceptional_option__max_hp
+        data_type: integer
+      - name: item_equipment_preset_3__exceptional_option__max_mp
+        data_type: integer
+      - name: item_equipment_preset_3__exceptional_option__magic_power
+        data_type: integer
+      - name: item_equipment_preset_3__exceptional_option__attack_power
+        data_type: integer
+      - name: item_equipment_preset_3__exceptional_option__exceptional_upgrad
+        data_type: integer
+      - name: item_equipment_preset_3__scroll_resilience_count
+        data_type: integer
+      - name: item_equipment_preset_3__equipment_level_increase
+        data_type: integer
+      - name: item_equipment_preset_3__scroll_upgradeable_count
+        data_type: integer
+      - name: item_equipment_preset_3__additional_potential_option_1
+        data_type: text
+      - name: item_equipment_preset_3__additional_potential_option_2
+        data_type: text
+      - name: item_equipment_preset_3__additional_potential_option_3
+        data_type: text
+      - name: item_equipment_preset_3__additional_potential_option_flag
+        data_type: text
+      - name: item_equipment_preset_3__additional_potential_option_grade
+        data_type: text
+  - name: stg_nexon__character_cash_item_equipment
+    columns:
+      - name: date
+        data_type: date
+      - name: ocid
+        data_type: varchar
+      - name: cash_item_equipment_part
+        data_type: text
+      - name: cash_item_equipment_slot
+        data_type: text
+      - name: character_gender
+        data_type: varchar
+      - name: character_class
+        data_type: varchar
+      - name: character_look_mode
+        data_type: varchar
+      - name: cash_item_equipment_base__skills
+        data_type: jsonb
+      - name: cash_item_equipment_base__date_expire
+        data_type: text
+      - name: cash_item_equipment_base__item_gender
+        data_type: text
+      - name: cash_item_equipment_base__emotion_name
+        data_type: text
+      - name: cash_item_equipment_base__icon
+        data_type: text
+      - name: cash_item_equipment_base__name
+        data_type: text
+      - name: cash_item_equipment_base__freestyle_flag
+        data_type: text
+      - name: cash_item_equipment_base__label
+        data_type: text
+      - name: cash_item_equipment_base__option
+        data_type: jsonb
+      - name: cash_item_equipment_base__option__str
+        data_type: integer
+      - name: cash_item_equipment_base__option__dex
+        data_type: integer
+      - name: cash_item_equipment_base__option__int
+        data_type: integer
+      - name: cash_item_equipment_base__option__luk
+        data_type: integer
+      - name: cash_item_equipment_base__option__max_hp
+        data_type: integer
+      - name: cash_item_equipment_base__option__max_mp
+        data_type: integer
+      - name: cash_item_equipment_base__option__attack_power
+        data_type: integer
+      - name: cash_item_equipment_base__option__magic_power
+        data_type: integer
+      - name: cash_item_equipment_base__date_option_expire
+        data_type: text
+      - name: cash_item_equipment_base__description
+        data_type: text
+      - name: cash_item_equipment_base__effect_prism
+        data_type: jsonb
+      - name: cash_item_equipment_base__coloring_prism
+        data_type: jsonb
+      - name: cash_item_equipment_preset_1__skills
+        data_type: jsonb
+      - name: cash_item_equipment_preset_1__date_expire
+        data_type: text
+      - name: cash_item_equipment_preset_1__item_gender
+        data_type: text
+      - name: cash_item_equipment_preset_1__emotion_name
+        data_type: text
+      - name: cash_item_equipment_preset_1__icon
+        data_type: text
+      - name: cash_item_equipment_preset_1__name
+        data_type: text
+      - name: cash_item_equipment_preset_1__freestyle_flag
+        data_type: text
+      - name: cash_item_equipment_preset_1__label
+        data_type: text
+      - name: cash_item_equipment_preset_1__option
+        data_type: jsonb
+      - name: cash_item_equipment_preset_1__option__str
+        data_type: integer
+      - name: cash_item_equipment_preset_1__option__dex
+        data_type: integer
+      - name: cash_item_equipment_preset_1__option__int
+        data_type: integer
+      - name: cash_item_equipment_preset_1__option__luk
+        data_type: integer
+      - name: cash_item_equipment_preset_1__option__max_hp
+        data_type: integer
+      - name: cash_item_equipment_preset_1__option__max_mp
+        data_type: integer
+      - name: cash_item_equipment_preset_1__option__attack_power
+        data_type: integer
+      - name: cash_item_equipment_preset_1__option__magic_power
+        data_type: integer
+      - name: cash_item_equipment_preset_1__date_option_expire
+        data_type: text
+      - name: cash_item_equipment_preset_1__description
+        data_type: text
+      - name: cash_item_equipment_preset_1__effect_prism
+        data_type: jsonb
+      - name: cash_item_equipment_preset_1__coloring_prism
+        data_type: jsonb
+      - name: cash_item_equipment_preset_2__skills
+        data_type: jsonb
+      - name: cash_item_equipment_preset_2__date_expire
+        data_type: text
+      - name: cash_item_equipment_preset_2__item_gender
+        data_type: text
+      - name: cash_item_equipment_preset_2__emotion_name
+        data_type: text
+      - name: cash_item_equipment_preset_2__icon
+        data_type: text
+      - name: cash_item_equipment_preset_2__name
+        data_type: text
+      - name: cash_item_equipment_preset_2__freestyle_flag
+        data_type: text
+      - name: cash_item_equipment_preset_2__label
+        data_type: text
+      - name: cash_item_equipment_preset_2__option
+        data_type: jsonb
+      - name: cash_item_equipment_preset_2__option__str
+        data_type: integer
+      - name: cash_item_equipment_preset_2__option__dex
+        data_type: integer
+      - name: cash_item_equipment_preset_2__option__int
+        data_type: integer
+      - name: cash_item_equipment_preset_2__option__luk
+        data_type: integer
+      - name: cash_item_equipment_preset_2__option__max_hp
+        data_type: integer
+      - name: cash_item_equipment_preset_2__option__max_mp
+        data_type: integer
+      - name: cash_item_equipment_preset_2__option__attack_power
+        data_type: integer
+      - name: cash_item_equipment_preset_2__option__magic_power
+        data_type: integer
+      - name: cash_item_equipment_preset_2__date_option_expire
+        data_type: text
+      - name: cash_item_equipment_preset_2__description
+        data_type: text
+      - name: cash_item_equipment_preset_2__effect_prism
+        data_type: jsonb
+      - name: cash_item_equipment_preset_2__coloring_prism
+        data_type: jsonb
+      - name: cash_item_equipment_preset_3__skills
+        data_type: jsonb
+      - name: cash_item_equipment_preset_3__date_expire
+        data_type: text
+      - name: cash_item_equipment_preset_3__item_gender
+        data_type: text
+      - name: cash_item_equipment_preset_3__emotion_name
+        data_type: text
+      - name: cash_item_equipment_preset_3__icon
+        data_type: text
+      - name: cash_item_equipment_preset_3__name
+        data_type: text
+      - name: cash_item_equipment_preset_3__freestyle_flag
+        data_type: text
+      - name: cash_item_equipment_preset_3__label
+        data_type: text
+      - name: cash_item_equipment_preset_3__option
+        data_type: jsonb
+      - name: cash_item_equipment_preset_3__option__str
+        data_type: integer
+      - name: cash_item_equipment_preset_3__option__dex
+        data_type: integer
+      - name: cash_item_equipment_preset_3__option__int
+        data_type: integer
+      - name: cash_item_equipment_preset_3__option__luk
+        data_type: integer
+      - name: cash_item_equipment_preset_3__option__max_hp
+        data_type: integer
+      - name: cash_item_equipment_preset_3__option__max_mp
+        data_type: integer
+      - name: cash_item_equipment_preset_3__option__attack_power
+        data_type: integer
+      - name: cash_item_equipment_preset_3__option__magic_power
+        data_type: integer
+      - name: cash_item_equipment_preset_3__date_option_expire
+        data_type: text
+      - name: cash_item_equipment_preset_3__description
+        data_type: text
+      - name: cash_item_equipment_preset_3__effect_prism
+        data_type: jsonb
+      - name: cash_item_equipment_preset_3__coloring_prism
+        data_type: jsonb
+      - name: additional_cash_item_equipment_base__skills
+        data_type: jsonb
+      - name: additional_cash_item_equipment_base__date_expire
+        data_type: text
+      - name: additional_cash_item_equipment_base__item_gender
+        data_type: text
+      - name: additional_cash_item_equipment_base__emotion_name
+        data_type: text
+      - name: additional_cash_item_equipment_base__icon
+        data_type: text
+      - name: additional_cash_item_equipment_base__name
+        data_type: text
+      - name: additional_cash_item_equipment_base__freestyle_flag
+        data_type: text
+      - name: additional_cash_item_equipment_base__label
+        data_type: text
+      - name: additional_cash_item_equipment_base__option
+        data_type: jsonb
+      - name: additional_cash_item_equipment_base__option__str
+        data_type: integer
+      - name: additional_cash_item_equipment_base__option__dex
+        data_type: integer
+      - name: additional_cash_item_equipment_base__option__int
+        data_type: integer
+      - name: additional_cash_item_equipment_base__option__luk
+        data_type: integer
+      - name: additional_cash_item_equipment_base__option__max_hp
+        data_type: integer
+      - name: additional_cash_item_equipment_base__option__max_mp
+        data_type: integer
+      - name: additional_cash_item_equipment_base__option__attack_power
+        data_type: integer
+      - name: additional_cash_item_equipment_base__option__magic_power
+        data_type: integer
+      - name: additional_cash_item_equipment_base__date_option_expire
+        data_type: text
+      - name: additional_cash_item_equipment_base__description
+        data_type: text
+      - name: additional_cash_item_equipment_base__effect_prism
+        data_type: jsonb
+      - name: additional_cash_item_equipment_base__coloring_prism
+        data_type: jsonb
+      - name: additional_cash_item_equipment_preset_1__skills
+        data_type: jsonb
+      - name: additional_cash_item_equipment_preset_1__date_expire
+        data_type: text
+      - name: additional_cash_item_equipment_preset_1__item_gender
+        data_type: text
+      - name: additional_cash_item_equipment_preset_1__emotion_name
+        data_type: text
+      - name: additional_cash_item_equipment_preset_1__icon
+        data_type: text
+      - name: additional_cash_item_equipment_preset_1__name
+        data_type: text
+      - name: additional_cash_item_equipment_preset_1__freestyle_flag
+        data_type: text
+      - name: additional_cash_item_equipment_preset_1__label
+        data_type: text
+      - name: additional_cash_item_equipment_preset_1__option
+        data_type: jsonb
+      - name: additional_cash_item_equipment_preset_1__option__str
+        data_type: integer
+      - name: additional_cash_item_equipment_preset_1__option__dex
+        data_type: integer
+      - name: additional_cash_item_equipment_preset_1__option__int
+        data_type: integer
+      - name: additional_cash_item_equipment_preset_1__option__luk
+        data_type: integer
+      - name: additional_cash_item_equipment_preset_1__option__max_hp
+        data_type: integer
+      - name: additional_cash_item_equipment_preset_1__option__max_mp
+        data_type: integer
+      - name: additional_cash_item_equipment_preset_1__option__attack_power
+        data_type: integer
+      - name: additional_cash_item_equipment_preset_1__option__magic_power
+        data_type: integer
+      - name: additional_cash_item_equipment_preset_1__date_option_expire
+        data_type: text
+      - name: additional_cash_item_equipment_preset_1__description
+        data_type: text
+      - name: additional_cash_item_equipment_preset_1__effect_prism
+        data_type: jsonb
+      - name: additional_cash_item_equipment_preset_1__coloring_prism
+        data_type: jsonb
+      - name: additional_cash_item_equipment_preset_2__skills
+        data_type: jsonb
+      - name: additional_cash_item_equipment_preset_2__date_expire
+        data_type: text
+      - name: additional_cash_item_equipment_preset_2__item_gender
+        data_type: text
+      - name: additional_cash_item_equipment_preset_2__emotion_name
+        data_type: text
+      - name: additional_cash_item_equipment_preset_2__icon
+        data_type: text
+      - name: additional_cash_item_equipment_preset_2__name
+        data_type: text
+      - name: additional_cash_item_equipment_preset_2__freestyle_flag
+        data_type: text
+      - name: additional_cash_item_equipment_preset_2__label
+        data_type: text
+      - name: additional_cash_item_equipment_preset_2__option
+        data_type: jsonb
+      - name: additional_cash_item_equipment_preset_2__option__str
+        data_type: integer
+      - name: additional_cash_item_equipment_preset_2__option__dex
+        data_type: integer
+      - name: additional_cash_item_equipment_preset_2__option__int
+        data_type: integer
+      - name: additional_cash_item_equipment_preset_2__option__luk
+        data_type: integer
+      - name: additional_cash_item_equipment_preset_2__option__max_hp
+        data_type: integer
+      - name: additional_cash_item_equipment_preset_2__option__max_mp
+        data_type: integer
+      - name: additional_cash_item_equipment_preset_2__option__attack_power
+        data_type: integer
+      - name: additional_cash_item_equipment_preset_2__option__magic_power
+        data_type: integer
+      - name: additional_cash_item_equipment_preset_2__date_option_expire
+        data_type: text
+      - name: additional_cash_item_equipment_preset_2__description
+        data_type: text
+      - name: additional_cash_item_equipment_preset_2__effect_prism
+        data_type: jsonb
+      - name: additional_cash_item_equipment_preset_2__coloring_prism
+        data_type: jsonb
+      - name: additional_cash_item_equipment_preset_3__skills
+        data_type: jsonb
+      - name: additional_cash_item_equipment_preset_3__date_expire
+        data_type: text
+      - name: additional_cash_item_equipment_preset_3__item_gender
+        data_type: text
+      - name: additional_cash_item_equipment_preset_3__emotion_name
+        data_type: text
+      - name: additional_cash_item_equipment_preset_3__icon
+        data_type: text
+      - name: additional_cash_item_equipment_preset_3__name
+        data_type: text
+      - name: additional_cash_item_equipment_preset_3__freestyle_flag
+        data_type: text
+      - name: additional_cash_item_equipment_preset_3__label
+        data_type: text
+      - name: additional_cash_item_equipment_preset_3__option
+        data_type: jsonb
+      - name: additional_cash_item_equipment_preset_3__option__str
+        data_type: integer
+      - name: additional_cash_item_equipment_preset_3__option__dex
+        data_type: integer
+      - name: additional_cash_item_equipment_preset_3__option__int
+        data_type: integer
+      - name: additional_cash_item_equipment_preset_3__option__luk
+        data_type: integer
+      - name: additional_cash_item_equipment_preset_3__option__max_hp
+        data_type: integer
+      - name: additional_cash_item_equipment_preset_3__option__max_mp
+        data_type: integer
+      - name: additional_cash_item_equipment_preset_3__option__attack_power
+        data_type: integer
+      - name: additional_cash_item_equipment_preset_3__option__magic_power
+        data_type: integer
+      - name: additional_cash_item_equipment_preset_3__date_option_expire
+        data_type: text
+      - name: additional_cash_item_equipment_preset_3__description
+        data_type: text
+      - name: additional_cash_item_equipment_preset_3__effect_prism
+        data_type: jsonb
+      - name: additional_cash_item_equipment_preset_3__coloring_prism
+        data_type: jsonb
+  - name: stg_nexon__character_symbol_equipment
+    columns:
+      - name: date
+        data_type: date
+      - name: ocid
+        data_type: varchar
+      - name: symbol__symbol_name
         data_type: text
       - name: character_class
+        data_type: varchar
+      - name: symbol__symbol_hp
+        data_type: integer
+      - name: symbol__symbol_dex
+        data_type: integer
+      - name: symbol__symbol_int
+        data_type: integer
+      - name: symbol__symbol_luk
+        data_type: integer
+      - name: symbol__symbol_str
+        data_type: integer
+      - name: symbol__symbol_icon
         data_type: text
+      - name: symbol__symbol_force
+        data_type: integer
+      - name: symbol__symbol_level
+        data_type: integer
+      - name: symbol__symbol_exp_rate
+        data_type: text
+      - name: symbol__symbol_drop_rate
+        data_type: text
+      - name: symbol__symbol_meso_rate
+        data_type: text
+      - name: symbol__symbol_description
+        data_type: text
+      - name: symbol__symbol_growth_count
+        data_type: integer
+      - name: symbol__symbol_require_growth_count
+        data_type: integer
+      - name: symbol__symbol_other_effect_description
+        data_type: text
+  - name: stg_nexon__character_set_effect
+    columns:
+      - name: date
+        data_type: date
+      - name: ocid
+        data_type: varchar
+      - name: set_effect__set_name
+        data_type: text
+      - name: set_effect__set_count
+        data_type: integer
+      - name: set_effect__set_effect_info__set_option
+        data_type: text
+      - name: set_effect__set_option_full__set_option
+        data_type: text
+      - name: set_effect__total_set_count
+        data_type: integer
+  - name: stg_nexon__character_beauty_equipment
+    columns:
+      - name: date
+        data_type: date
+      - name: ocid
+        data_type: varchar
+      - name: character_gender
+        data_type: varchar
+      - name: character_class
+        data_type: varchar
+      - name: character_hair__hair_name
+        data_type: text
+      - name: character_hair__base_color
+        data_type: text
+      - name: character_hair__mix_color
+        data_type: text
+      - name: character_hair__mix_rate
+        data_type: integer
+      - name: character_hair__freestyle_flag
+        data_type: text
+      - name: character_face__face_name
+        data_type: text
+      - name: character_face__base_color
+        data_type: text
+      - name: character_face__mix_color
+        data_type: text
+      - name: character_face__mix_rate
+        data_type: integer
+      - name: character_face__freestyle_flag
+        data_type: text
+      - name: character_skin__skin_name
+        data_type: text
+      - name: character_skin__color_style
+        data_type: text
+      - name: character_skin__hue
+        data_type: integer
+      - name: character_skin__saturation
+        data_type: integer
+      - name: character_skin__brightness
+        data_type: integer
+  - name: stg_nexon__character_android_equipment
+    columns:
+      - name: date
+        data_type: date
+      - name: ocid
+        data_type: varchar
+      - name: android_name
+        data_type: varchar
+      - name: android_nickname
+        data_type: varchar
+      - name: android_icon
+        data_type: varchar
+      - name: android_description
+        data_type: varchar
+      - name: android_hair__hair_name
+        data_type: text
+      - name: android_hair__base_color
+        data_type: text
+      - name: android_hair__mix_color
+        data_type: text
+      - name: android_hair__mix_rate
+        data_type: integer
+      - name: android_hair__freestyle_flag
+        data_type: text
+      - name: android_face__face_name
+        data_type: text
+      - name: android_face__base_color
+        data_type: text
+      - name: android_face__mix_color
+        data_type: text
+      - name: android_face__mix_rate
+        data_type: integer
+      - name: android_face__freestyle_flag
+        data_type: text
+      - name: android_skin__skin_name
+        data_type: text
+      - name: android_skin__color_style
+        data_type: text
+      - name: android_skin__hue
+        data_type: integer
+      - name: android_skin__saturation
+        data_type: integer
+      - name: android_skin__brightness
+        data_type: integer
+      - name: android_ear_sensor_clip_flag
+        data_type: varchar
+      - name: android_gender
+        data_type: varchar
+      - name: android_grade
+        data_type: varchar
+      - name: android_non_humanoid_flag
+        data_type: varchar
+      - name: android_shop_usable_flag
+        data_type: varchar
+      - name: preset_no
+        data_type: bigint
+      - name: android_preset_1__android_name
+        data_type: text
+      - name: android_preset_1__android_nickname
+        data_type: text
+      - name: android_preset_1__android_icon
+        data_type: text
+      - name: android_preset_1__android_description
+        data_type: text
+      - name: android_preset_1__android_hair__hair_name
+        data_type: text
+      - name: android_preset_1__android_hair__base_color
+        data_type: text
+      - name: android_preset_1__android_hair__mix_color
+        data_type: text
+      - name: android_preset_1__android_hair__mix_rate
+        data_type: integer
+      - name: android_preset_1__android_hair__freestyle_flag
+        data_type: text
+      - name: android_preset_1__android_face__face_name
+        data_type: text
+      - name: android_preset_1__android_face__base_color
+        data_type: text
+      - name: android_preset_1__android_face__mix_color
+        data_type: text
+      - name: android_preset_1__android_face__mix_rate
+        data_type: integer
+      - name: android_preset_1__android_face__freestyle_flag
+        data_type: text
+      - name: android_preset_1__android_skin__skin_name
+        data_type: text
+      - name: android_preset_1__android_skin__color_style
+        data_type: text
+      - name: android_preset_1__android_skin__hue
+        data_type: integer
+      - name: android_preset_1__android_skin__saturation
+        data_type: integer
+      - name: android_preset_1__android_skin__brightness
+        data_type: integer
+      - name: android_preset_1__android_ear_sensor_clip_flag
+        data_type: text
+      - name: android_preset_1__android_gender
+        data_type: text
+      - name: android_preset_1__android_grade
+        data_type: text
+      - name: android_preset_1__android_non_humanoid_flag
+        data_type: text
+      - name: android_preset_1__android_shop_usable_flag
+        data_type: text
+      - name: android_cash_item_equipment__cash_item_equipment_slot
+        data_type: text
+      - name: android_cash_item_equipment__cash_item_equipment_part
+        data_type: text
+      - name: android_cash_item_equipment__skills
+        data_type: jsonb
+      - name: android_cash_item_equipment__date_expire
+        data_type: text
+      - name: android_cash_item_equipment__item_gender
+        data_type: text
+      - name: android_cash_item_equipment__emotion_name
+        data_type: text
+      - name: android_cash_item_equipment__cash_item_icon
+        data_type: text
+      - name: android_cash_item_equipment__cash_item_name
+        data_type: text
+      - name: android_cash_item_equipment__freestyle_flag
+        data_type: text
+      - name: android_cash_item_equipment__cash_item_label
+        data_type: text
+      - name: android_cash_item_equipment__cash_item_option
+        data_type: jsonb
+      - name: android_cash_item_equipment__date_option_expire
+        data_type: text
+      - name: android_cash_item_equipment__cash_item_description
+        data_type: text
+      - name: android_cash_item_equipment__cash_item_effect_prism
+        data_type: jsonb
+      - name: android_cash_item_equipment__cash_item_coloring_prism
+        data_type: jsonb
+  - name: stg_nexon__character_pet_equipment
+    columns:
+      - name: date
+        data_type: date
+      - name: ocid
+        data_type: varchar
+      - name: pet_activate_flag
+        data_type: varchar
+      - name: pet_1_name
+        data_type: varchar
+      - name: pet_1_nickname
+        data_type: varchar
+      - name: pet_1_icon
+        data_type: varchar
+      - name: pet_1_description
+        data_type: varchar
+      - name: pet_1_equipment__item_icon
+        data_type: text
+      - name: pet_1_equipment__item_name
+        data_type: text
+      - name: pet_1_equipment__item_shape
+        data_type: text
+      - name: pet_1_equipment__scroll_upgrade
+        data_type: integer
+      - name: pet_1_equipment__item_shape_icon
+        data_type: text
+      - name: pet_1_equipment__item_date_expire
+        data_type: text
+      - name: pet_1_equipment__item_description
+        data_type: text
+      - name: pet_1_equipment__scroll_upgradable
+        data_type: integer
+      - name: pet_1_auto_skill__skill_1
+        data_type: text
+      - name: pet_1_auto_skill__skill_1_icon
+        data_type: text
+      - name: pet_1_auto_skill__skill_2
+        data_type: text
+      - name: pet_1_auto_skill__skill_2_icon
+        data_type: text
+      - name: pet_1_pet_type
+        data_type: varchar
+      - name: pet_1_date_expire
+        data_type: timestamptz
+      - name: pet_1_appearance
+        data_type: varchar
+      - name: pet_1_appearance_icon
+        data_type: varchar
+      - name: pet_2_name
+        data_type: varchar
+      - name: pet_2_nickname
+        data_type: varchar
+      - name: pet_2_icon
+        data_type: varchar
+      - name: pet_2_description
+        data_type: varchar
+      - name: pet_2_equipment__item_icon
+        data_type: text
+      - name: pet_2_equipment__item_name
+        data_type: text
+      - name: pet_2_equipment__item_shape
+        data_type: text
+      - name: pet_2_equipment__scroll_upgrade
+        data_type: integer
+      - name: pet_2_equipment__item_shape_icon
+        data_type: text
+      - name: pet_2_equipment__item_date_expire
+        data_type: text
+      - name: pet_2_equipment__item_description
+        data_type: text
+      - name: pet_2_equipment__scroll_upgradable
+        data_type: integer
+      - name: pet_2_auto_skill__skill_1
+        data_type: text
+      - name: pet_2_auto_skill__skill_1_icon
+        data_type: text
+      - name: pet_2_auto_skill__skill_2
+        data_type: text
+      - name: pet_2_auto_skill__skill_2_icon
+        data_type: text
+      - name: pet_2_pet_type
+        data_type: varchar
+      - name: pet_2_date_expire
+        data_type: timestamptz
+      - name: pet_2_appearance
+        data_type: varchar
+      - name: pet_2_appearance_icon
+        data_type: varchar
+      - name: pet_3_name
+        data_type: varchar
+      - name: pet_3_nickname
+        data_type: varchar
+      - name: pet_3_icon
+        data_type: varchar
+      - name: pet_3_description
+        data_type: varchar
+      - name: pet_3_equipment__item_icon
+        data_type: text
+      - name: pet_3_equipment__item_name
+        data_type: text
+      - name: pet_3_equipment__item_shape
+        data_type: text
+      - name: pet_3_equipment__scroll_upgrade
+        data_type: integer
+      - name: pet_3_equipment__item_shape_icon
+        data_type: text
+      - name: pet_3_equipment__item_date_expire
+        data_type: text
+      - name: pet_3_equipment__item_description
+        data_type: text
+      - name: pet_3_equipment__scroll_upgradable
+        data_type: integer
+      - name: pet_3_auto_skill__skill_1
+        data_type: text
+      - name: pet_3_auto_skill__skill_1_icon
+        data_type: text
+      - name: pet_3_auto_skill__skill_2
+        data_type: text
+      - name: pet_3_auto_skill__skill_2_icon
+        data_type: text
+      - name: pet_3_pet_type
+        data_type: varchar
+      - name: pet_3_date_expire
+        data_type: timestamptz
+      - name: pet_3_appearance
+        data_type: varchar
+      - name: pet_3_appearance_icon
+        data_type: varchar
+      - name: world_share_pet_1_name
+        data_type: varchar
+      - name: world_share_pet_1_nickname
+        data_type: varchar
+      - name: world_share_pet_1_icon
+        data_type: varchar
+      - name: world_share_pet_1_description
+        data_type: varchar
+      - name: world_share_pet_1_pet_type
+        data_type: varchar
+      - name: world_share_pet_1_equipment__item_icon
+        data_type: text
+      - name: world_share_pet_1_equipment__item_name
+        data_type: text
+      - name: world_share_pet_1_equipment__item_shape
+        data_type: text
+      - name: world_share_pet_1_equipment__scroll_upgrade
+        data_type: integer
+      - name: world_share_pet_1_equipment__item_shape_icon
+        data_type: text
+      - name: world_share_pet_1_equipment__item_date_expire
+        data_type: text
+      - name: world_share_pet_1_equipment__item_description
+        data_type: text
+      - name: world_share_pet_1_equipment__scroll_upgradable
+        data_type: integer
+      - name: world_share_pet_1_auto_skill__skill_1
+        data_type: text
+      - name: world_share_pet_1_auto_skill__skill_1_icon
+        data_type: text
+      - name: world_share_pet_1_auto_skill__skill_2
+        data_type: text
+      - name: world_share_pet_1_auto_skill__skill_2_icon
+        data_type: text
+      - name: world_share_pet_1_date_expire
+        data_type: timestamptz
+      - name: world_share_pet_1_appearance
+        data_type: varchar
+      - name: world_share_pet_1_appearance_icon
+        data_type: varchar
+      - name: world_share_pet_2_name
+        data_type: varchar
+      - name: world_share_pet_2_nickname
+        data_type: varchar
+      - name: world_share_pet_2_icon
+        data_type: varchar
+      - name: world_share_pet_2_description
+        data_type: varchar
+      - name: world_share_pet_2_pet_type
+        data_type: varchar
+      - name: world_share_pet_2_equipment__item_icon
+        data_type: text
+      - name: world_share_pet_2_equipment__item_name
+        data_type: text
+      - name: world_share_pet_2_equipment__item_shape
+        data_type: text
+      - name: world_share_pet_2_equipment__scroll_upgrade
+        data_type: integer
+      - name: world_share_pet_2_equipment__item_shape_icon
+        data_type: text
+      - name: world_share_pet_2_equipment__item_date_expire
+        data_type: text
+      - name: world_share_pet_2_equipment__item_description
+        data_type: text
+      - name: world_share_pet_2_equipment__scroll_upgradable
+        data_type: integer
+      - name: world_share_pet_2_auto_skill__skill_1
+        data_type: text
+      - name: world_share_pet_2_auto_skill__skill_1_icon
+        data_type: text
+      - name: world_share_pet_2_auto_skill__skill_2
+        data_type: text
+      - name: world_share_pet_2_auto_skill__skill_2_icon
+        data_type: text
+      - name: world_share_pet_2_date_expire
+        data_type: timestamptz
+      - name: world_share_pet_2_appearance
+        data_type: varchar
+      - name: world_share_pet_2_appearance_icon
+        data_type: varchar
+      - name: world_share_pet_3_name
+        data_type: varchar
+      - name: world_share_pet_3_nickname
+        data_type: varchar
+      - name: world_share_pet_3_icon
+        data_type: varchar
+      - name: world_share_pet_3_description
+        data_type: varchar
+      - name: world_share_pet_3_pet_type
+        data_type: varchar
+      - name: world_share_pet_3_equipment__item_icon
+        data_type: text
+      - name: world_share_pet_3_equipment__item_name
+        data_type: text
+      - name: world_share_pet_3_equipment__item_shape
+        data_type: text
+      - name: world_share_pet_3_equipment__scroll_upgrade
+        data_type: integer
+      - name: world_share_pet_3_equipment__item_shape_icon
+        data_type: text
+      - name: world_share_pet_3_equipment__item_date_expire
+        data_type: text
+      - name: world_share_pet_3_equipment__item_description
+        data_type: text
+      - name: world_share_pet_3_equipment__scroll_upgradable
+        data_type: integer
+      - name: world_share_pet_3_auto_skill__skill_1
+        data_type: text
+      - name: world_share_pet_3_auto_skill__skill_1_icon
+        data_type: text
+      - name: world_share_pet_3_auto_skill__skill_2
+        data_type: text
+      - name: world_share_pet_3_auto_skill__skill_2_icon
+        data_type: text
+      - name: world_share_pet_3_date_expire
+        data_type: timestamptz
+      - name: world_share_pet_3_appearance
+        data_type: varchar
+      - name: world_share_pet_3_appearance_icon
+        data_type: varchar
+      - name: pet_group
+        data_type: text
+      - name: pet_no
+        data_type: integer
+      - name: pet_skill__index
+        data_type: integer
+      - name: pet_skill__value
+        data_type: text
+      - name: equipment_item_option__index
+        data_type: integer
+      - name: equipment_item_option__option_type
+        data_type: text
+      - name: equipment_item_option__option_value
+        data_type: text
+  - name: stg_nexon__character_link_skill
+    columns:
+      - name: date
+        data_type: date
+      - name: ocid
+        data_type: varchar
+      - name: character_class
+        data_type: varchar
+      - name: skill_name
+        data_type: text
+      - name: character_link_skill__skill_icon
+        data_type: text
+      - name: character_link_skill__skill_level
+        data_type: integer
+      - name: character_link_skill__skill_effect
+        data_type: text
+      - name: character_link_skill__skill_effect_next
+        data_type: text
+      - name: character_link_skill__skill_description
+        data_type: text
+      - name: character_link_skill_preset_1__skill_icon
+        data_type: text
+      - name: character_link_skill_preset_1__skill_level
+        data_type: integer
+      - name: character_link_skill_preset_1__skill_effect
+        data_type: text
+      - name: character_link_skill_preset_1__skill_description
+        data_type: text
+      - name: character_link_skill_preset_2__skill_icon
+        data_type: text
+      - name: character_link_skill_preset_2__skill_level
+        data_type: integer
+      - name: character_link_skill_preset_2__skill_effect
+        data_type: text
+      - name: character_link_skill_preset_2__skill_description
+        data_type: text
+      - name: character_link_skill_preset_3__skill_icon
+        data_type: text
+      - name: character_link_skill_preset_3__skill_level
+        data_type: integer
+      - name: character_link_skill_preset_3__skill_effect
+        data_type: text
+      - name: character_link_skill_preset_3__skill_description
+        data_type: text
+      - name: character_owned_link_skill__skill_icon
+        data_type: text
+      - name: character_owned_link_skill__skill_level
+        data_type: integer
+      - name: character_owned_link_skill__skill_effect
+        data_type: text
+      - name: character_owned_link_skill__skill_description
+        data_type: text
+      - name: character_owned_link_skill_preset_1__skill_icon
+        data_type: text
+      - name: character_owned_link_skill_preset_1__skill_level
+        data_type: integer
+      - name: character_owned_link_skill_preset_1__skill_effect
+        data_type: text
+      - name: character_owned_link_skill_preset_1__skill_description
+        data_type: text
+      - name: character_owned_link_skill_preset_2__skill_icon
+        data_type: text
+      - name: character_owned_link_skill_preset_2__skill_level
+        data_type: integer
+      - name: character_owned_link_skill_preset_2__skill_effect
+        data_type: text
+      - name: character_owned_link_skill_preset_2__skill_description
+        data_type: text
+      - name: character_owned_link_skill_preset_3__skill_icon
+        data_type: text
+      - name: character_owned_link_skill_preset_3__skill_level
+        data_type: integer
+      - name: character_owned_link_skill_preset_3__skill_effect
+        data_type: text
+      - name: character_owned_link_skill_preset_3__skill_description
+        data_type: text
+  - name: stg_nexon__character_vmatrix
+    columns:
+      - name: date
+        data_type: date
+      - name: ocid
+        data_type: varchar
+      - name: character_class
+        data_type: varchar
+      - name: slot_id
+        data_type: integer
+      - name: v_core_type
+        data_type: text
+      - name: character_v_core_equipment__slot_level
+        data_type: integer
+      - name: character_v_core_equipment__v_core_name
+        data_type: text
+      - name: character_v_core_equipment__v_core_level
+        data_type: integer
+      - name: character_v_core_equipment__v_core_skill_1
+        data_type: text
+      - name: character_v_core_equipment__v_core_skill_2
+        data_type: text
+      - name: character_v_core_equipment__v_core_skill_3
+        data_type: text
+      - name: character_v_matrix_remain_slot_upgrade_point
+        data_type: integer
+      - name: character_v_core_equipment_preset_1__slot_level
+        data_type: integer
+      - name: character_v_core_equipment_preset_1__v_core_name
+        data_type: text
+      - name: character_v_core_equipment_preset_1__v_core_level
+        data_type: integer
+      - name: character_v_core_equipment_preset_1__v_core_skill_1
+        data_type: text
+      - name: character_v_core_equipment_preset_1__v_core_skill_2
+        data_type: text
+      - name: character_v_core_equipment_preset_1__v_core_skill_3
+        data_type: text
+      - name: character_v_core_equipment_preset_2__slot_level
+        data_type: integer
+      - name: character_v_core_equipment_preset_2__v_core_name
+        data_type: text
+      - name: character_v_core_equipment_preset_2__v_core_level
+        data_type: integer
+      - name: character_v_core_equipment_preset_2__v_core_skill_1
+        data_type: text
+      - name: character_v_core_equipment_preset_2__v_core_skill_2
+        data_type: text
+      - name: character_v_core_equipment_preset_2__v_core_skill_3
+        data_type: text
+      - name: character_v_core_equipment_preset_3__slot_level
+        data_type: integer
+      - name: character_v_core_equipment_preset_3__v_core_name
+        data_type: text
+      - name: character_v_core_equipment_preset_3__v_core_level
+        data_type: integer
+      - name: character_v_core_equipment_preset_3__v_core_skill_1
+        data_type: text
+      - name: character_v_core_equipment_preset_3__v_core_skill_2
+        data_type: text
+      - name: character_v_core_equipment_preset_3__v_core_skill_3
+        data_type: text
+      - name: character_v_core_equipment_preset_4__slot_level
+        data_type: integer
+      - name: character_v_core_equipment_preset_4__v_core_name
+        data_type: text
+      - name: character_v_core_equipment_preset_4__v_core_level
+        data_type: integer
+      - name: character_v_core_equipment_preset_4__v_core_skill_1
+        data_type: text
+      - name: character_v_core_equipment_preset_4__v_core_skill_2
+        data_type: text
+      - name: character_v_core_equipment_preset_4__v_core_skill_3
+        data_type: text
+      - name: character_v_core_equipment_preset_5__slot_level
+        data_type: integer
+      - name: character_v_core_equipment_preset_5__v_core_name
+        data_type: text
+      - name: character_v_core_equipment_preset_5__v_core_level
+        data_type: integer
+      - name: character_v_core_equipment_preset_5__v_core_skill_1
+        data_type: text
+      - name: character_v_core_equipment_preset_5__v_core_skill_2
+        data_type: text
+      - name: character_v_core_equipment_preset_5__v_core_skill_3
+        data_type: text
+  - name: stg_nexon__character_hexamatrix
+    columns:
+      - name: date
+        data_type: date
+      - name: ocid
+        data_type: varchar
+      - name: character_hexa_core_equipment__hexa_core_name
+        data_type: text
+      - name: character_hexa_core_equipment__hexa_core_type
+        data_type: text
+      - name: character_hexa_core_equipment__hexa_core_level
+        data_type: integer
+      - name: character_hexa_core_equipment__hexa_core_event_level
+        data_type: integer
+      - name: character_hexa_core_equipment__linked_skill__hexa_skill_id
+        data_type: text
+  - name: stg_nexon__character_hexamatrix_stat
+    columns:
+      - name: date
+        data_type: date
+      - name: ocid
+        data_type: varchar
+      - name: character_class
+        data_type: varchar
+      - name: hexa_stat_core__source
+        data_type: text
+      - name: hexa_stat_core__slot_id
+        data_type: text
+      - name: hexa_stat_core__stat_grade
+        data_type: text
+      - name: hexa_stat_core__main_stat_name
+        data_type: text
+      - name: hexa_stat_core__main_stat_level
+        data_type: integer
+      - name: hexa_stat_core__sub_stat_name_1
+        data_type: text
+      - name: hexa_stat_core__sub_stat_level_1
+        data_type: integer
+      - name: hexa_stat_core__sub_stat_name_2
+        data_type: text
+      - name: hexa_stat_core__sub_stat_level_2
+        data_type: integer
+  - name: stg_nexon__character_other_stat
+    columns:
+      - name: date
+        data_type: date
+      - name: ocid
+        data_type: varchar
+      - name: other_stat__other_stat_type
+        data_type: text
+      - name: other_stat__stat_info__stat_name
+        data_type: text
+      - name: other_stat__stat_info__stat_value
+        data_type: text
+  - name: stg_nexon__character_ring_reserve_skill_equipment
+    columns:
+      - name: date
+        data_type: date
+      - name: ocid
+        data_type: varchar
+      - name: character_class
+        data_type: varchar
+      - name: special_ring_reserve_name
+        data_type: varchar
+      - name: special_ring_reserve_level
+        data_type: integer
+      - name: special_ring_reserve_icon
+        data_type: varchar
+      - name: special_ring_reserve_description
+        data_type: varchar
+  - name: stg_nexon__user_union
+    columns:
+      - name: date
+        data_type: date
+      - name: ocid
+        data_type: varchar
+      - name: union_level
+        data_type: integer
+      - name: union_grade
+        data_type: varchar
+      - name: union_artifact_level
+        data_type: integer
+      - name: union_artifact_exp
+        data_type: bigint
+      - name: union_artifact_point
+        data_type: integer
+  - name: stg_nexon__user_union_raider
+    columns:
+      - name: date
+        data_type: date
+      - name: ocid
+        data_type: varchar
+      - name: use_preset_no
+        data_type: integer
+      - name: union_max_point
+        data_type: integer
+      - name: raider__source
+        data_type: text
+      - name: union_inner_stat__stat_field_id
+        data_type: text
+      - name: union_inner_stat__stat_field_effect
+        data_type: text
+      - name: union_raider_preset_1__union_inner_stat__stat_field_effect
+        data_type: text
+      - name: union_raider_preset_2__union_inner_stat__stat_field_effect
+        data_type: text
+      - name: union_raider_preset_3__union_inner_stat__stat_field_effect
+        data_type: text
+      - name: union_raider_preset_4__union_inner_stat__stat_field_effect
+        data_type: text
+      - name: union_raider_preset_5__union_inner_stat__stat_field_effect
+        data_type: text
+      - name: union_raider_stat__index
+        data_type: bigint
+      - name: union_raider_stat__value
+        data_type: text
+      - name: union_state_stat__index
+        data_type: bigint
+      - name: union_state_stat__value
+        data_type: text
+      - name: union_state_stat_preset__preset_no
+        data_type: integer
+      - name: union_state_stat_preset__union_state_stat__index
+        data_type: bigint
+      - name: union_state_stat_preset__union_state_stat__value
+        data_type: text
+      - name: union_block__block_type
+        data_type: text
+      - name: union_block__block_class
+        data_type: text
+      - name: union_block__block_level
+        data_type: integer
+      - name: union_block__block_control_point__x
+        data_type: text
+      - name: union_block__block_control_point__y
+        data_type: text
+      - name: union_block__block_position__index
+        data_type: bigint
+      - name: union_block__block_position__x
+        data_type: text
+      - name: union_block__block_position__y
+        data_type: text
+      - name: union_occupied_stat__index
+        data_type: bigint
+      - name: union_occupied_stat__value
+        data_type: text
+  - name: stg_nexon__user_union_artifact
+    columns:
+      - name: date
+        data_type: date
+      - name: ocid
+        data_type: varchar
+      - name: union_artifact_remain_ap
+        data_type: integer
+      - name: union_artifact_effect__name
+        data_type: text
+      - name: union_artifact_effect__level
+        data_type: integer
+      - name: union_artifact_crystal__name
+        data_type: text
+      - name: union_artifact_crystal__validity_flag
+        data_type: text
+      - name: union_artifact_crystal__date_expire
+        data_type: timestamptz
+      - name: union_artifact_crystal__level
+        data_type: integer
+      - name: union_artifact_crystal__crystal_option_name_1
+        data_type: text
+      - name: union_artifact_crystal__crystal_option_name_2
+        data_type: text
+      - name: union_artifact_crystal__crystal_option_name_3
+        data_type: text
+      - name: artifact__source
+        data_type: text
+  - name: stg_nexon__user_union_champion
+    columns:
+      - name: date
+        data_type: date
+      - name: ocid
+        data_type: varchar
+      - name: error__name
+        data_type: text
+      - name: error__message
+        data_type: text
+      - name: union_champion__champion_name
+        data_type: text
+      - name: union_champion__champion_slot
+        data_type: integer
+      - name: union_champion__champion_class
+        data_type: text
+      - name: union_champion__champion_grade
+        data_type: text
+      - name: union_champion__champion_badge_info__index
+        data_type: integer
+      - name: union_champion__champion_badge_info__stat
+        data_type: text
+      - name: champion_badge_total_info__index
+        data_type: integer
+      - name: champion_badge_total_info__stat
+        data_type: text
+      - name: champion__source
+        data_type: text
+  - name: stg_nexon__scheduler_character_state
+    columns:
+      - name: date
+        data_type: date
+      - name: ocid
+        data_type: varchar
+      - name: character_name
+        data_type: varchar
+      - name: world_name
+        data_type: varchar
       - name: character_level
-        data_type: int
+        data_type: integer
+      - name: character_class
+        data_type: varchar
+      - name: weekly_boss_clear_count
+        data_type: integer
+      - name: weekly_boss_clear_limit_count
+        data_type: integer
+      - name: contents__source
+        data_type: text
+      - name: daily_contents__type
+        data_type: text
+      - name: daily_contents__max_count
+        data_type: integer
+      - name: daily_contents__now_count
+        data_type: integer
+      - name: daily_contents__quest_state
+        data_type: text
+      - name: daily_contents__content_name
+        data_type: text
+      - name: daily_contents__registration_flag
+        data_type: text
+      - name: weekly_contents__type
+        data_type: text
+      - name: weekly_contents__max_count
+        data_type: integer
+      - name: weekly_contents__now_count
+        data_type: integer
+      - name: weekly_contents__quest_state
+        data_type: text
+      - name: weekly_contents__content_name
+        data_type: text
+      - name: weekly_contents__registration_flag
+        data_type: text
+      - name: boss_contents__cycle
+        data_type: text
+      - name: boss_contents__difficulty
+        data_type: text
+      - name: boss_contents__content_name
+        data_type: text
+      - name: boss_contents__complete_flag
+        data_type: text
+      - name: boss_contents__list_order_no
+        data_type: integer
+      - name: boss_contents__registration_flag
+        data_type: text
+  - name: stg_nexon__notice
+    columns:
+      - name: title
+        data_type: varchar
+      - name: url
+        data_type: varchar
+      - name: notice_id
+        data_type: bigint
+      - name: date
+        data_type: timestamptz
+  - name: stg_nexon__notice_detail
+    columns:
+      - name: notice_id
+        data_type: bigint
+      - name: title
+        data_type: varchar
+      - name: url
+        data_type: varchar
+      - name: contents
+        data_type: varchar
+      - name: date
+        data_type: timestamptz
+  - name: stg_nexon__notice_update
+    columns:
+      - name: title
+        data_type: varchar
+      - name: url
+        data_type: varchar
+      - name: notice_id
+        data_type: bigint
+      - name: date
+        data_type: timestamptz
+  - name: stg_nexon__notice_update_detail
+    columns:
+      - name: notice_id
+        data_type: bigint
+      - name: title
+        data_type: varchar
+      - name: url
+        data_type: varchar
+      - name: contents
+        data_type: varchar
+      - name: date
+        data_type: timestamptz
+  - name: stg_nexon__notice_event
+    columns:
+      - name: title
+        data_type: varchar
+      - name: url
+        data_type: varchar
+      - name: thumbnail_url
+        data_type: varchar
+      - name: notice_id
+        data_type: bigint
+      - name: date
+        data_type: timestamptz
+      - name: date_event_start
+        data_type: timestamptz
+      - name: date_event_end
+        data_type: timestamptz
+  - name: stg_nexon__notice_event_detail
+    columns:
+      - name: notice_id
+        data_type: bigint
+      - name: title
+        data_type: varchar
+      - name: url
+        data_type: varchar
+      - name: contents
+        data_type: varchar
+      - name: date
+        data_type: timestamptz
+      - name: date_event_start
+        data_type: timestamptz
+      - name: date_event_end
+        data_type: timestamptz
+  - name: stg_nexon__notice_cashshop
+    columns:
+      - name: title
+        data_type: varchar
+      - name: url
+        data_type: varchar
+      - name: thumbnail_url
+        data_type: varchar
+      - name: notice_id
+        data_type: bigint
+      - name: date
+        data_type: timestamptz
+      - name: date_sale_start
+        data_type: timestamptz
+      - name: date_sale_end
+        data_type: timestamptz
+      - name: ongoing_flag
+        data_type: boolean
+  - name: stg_nexon__notice_cashshop_detail
+    columns:
+      - name: notice_id
+        data_type: bigint
+      - name: title
+        data_type: varchar
+      - name: url
+        data_type: varchar
+      - name: contents
+        data_type: varchar
+      - name: date
+        data_type: timestamptz
+      - name: date_sale_start
+        data_type: timestamptz
+      - name: date_sale_end
+        data_type: timestamptz
+      - name: ongoing_flag
+        data_type: boolean
