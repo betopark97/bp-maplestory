@@ -20,5 +20,8 @@ transformation/dbt_packages/
 transformation/logs/
 transformation/.user.yml
 
+# Scraping workbench (kept private — extraction source not disclosed)
+ingestion/notebooks/
+
 # Claude Code
 .claude/
