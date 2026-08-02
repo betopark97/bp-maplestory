@@ -3,6 +3,7 @@ from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 
 import dlt
+from dlt.common import logger
 
 from .settings import REQUEST_DELAY
 
@@ -12,6 +13,18 @@ def default_date():
     return (datetime.now(ZoneInfo("Asia/Seoul")) - timedelta(days=1)).strftime(
         "%Y-%m-%d"
     )
+
+
+def is_error_response(response, endpoint_name, identity):
+    """Nexon returns HTTP 200 with an error envelope (e.g. update-window
+    OPENAPI00009, raised during the daily 00:00-02:00 KST data refresh)
+    instead of raising. Log the skip and signal it (True) so callers don't
+    stamp an all-null row; `identity` is the stamped query params, which are
+    logged for context."""
+    if not response.get("error"):
+        return False
+    logger.warning("%s skipped %s: %s", endpoint_name, identity, response["error"])
+    return True
 
 
 def is_ocid_child(endpoint_config):
@@ -61,6 +74,9 @@ def build_ocid_child(endpoint_name, endpoint_config, parent, client, date):
         # Actual endpoint response.
         response = client.get(path=endpoint_config["path"], params=identity).json()
 
+        if is_error_response(response, endpoint_name, identity):
+            return
+
         yield {**identity, **response}
 
     return _resource
@@ -89,6 +105,9 @@ def build_notice_id_child(endpoint_name, endpoint_config, parent, client):
 
         # Actual endpoint response.
         response = client.get(path=endpoint_config["path"], params=identity).json()
+
+        if is_error_response(response, endpoint_name, identity):
+            return
 
         yield {**identity, **response}
 
