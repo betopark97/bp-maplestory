@@ -4,3 +4,9 @@
 
 [runtime]
 log_level = "INFO"
+
+# Arrow/polars loads skip data-lineage columns by default. Turn them on so every row
+# carries _dlt_load_id (→ joins to _dlt_loads for auditing) and _dlt_id (unique row id).
+[normalize.parquet_normalizer]
+add_dlt_load_id = true
+add_dlt_id = true
