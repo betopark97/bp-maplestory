@@ -11,13 +11,32 @@ BUCKET_URL = "s3://raw"
 # -------------------------------------------------------------------------------------
 # Every parquet under the bucket becomes its own table, named after the file stem —
 # `raw/hexa_skill/hexa_boss.parquet` loads as `hexa_boss`. `**` recurses into every
-# namespace directory. The HTML archives and image blobs are left where they are;
-# Postgres reaches the blobs through the pointer tables' `object_key` column.
+# namespace directory. The HTML archives are left where they are; the image blobs get
+# the listing table below rather than a table each.
 FILE_GLOB = "**/*.parquet"
 
 # The notebooks overwrite each object in place, so every table reloads whole. The
 # history that matters is the history of loads, which `_dlt_loads` keeps.
 WRITE_DISPOSITION = "replace"
+
+# -------------------------------------------------------------------------------------
+# Image blobs to index
+# -------------------------------------------------------------------------------------
+# Every image the notebooks archive sits under its namespace's `images/` prefix, at
+# whatever depth that page's keying needs — `images/{이름}.webp` (hexa_skill),
+# `images/{group}/{이름}.webp` (boss_card, field_boss_icon), and
+# `images/sprite/{섹션}/{이름}.gif` (names repeat across sections). `**/images/**`
+# matches all three.
+#
+# The blobs stay in MinIO: this is a listing, so only keys and object metadata land in
+# Postgres, as one lookup table to join against — not an `object_key` column repeated
+# across the individual tables. Splitting a key into its namespace / group / section /
+# name is the staging layer's job, same as renaming.
+IMAGE_GLOB = "**/images/**"
+
+# Built by name rather than discovered from a file stem, so it is also the one table
+# name a parquet object may not take (see `check_unique_table_names`).
+IMAGE_TABLE_NAME = "image"
 
 # -------------------------------------------------------------------------------------
 # Identifier naming

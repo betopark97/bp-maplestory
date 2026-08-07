@@ -3,8 +3,19 @@ from dlt.common.schema import Schema
 from dlt.sources.credentials import FileSystemCredentials
 from dlt.sources.filesystem import fsspec_filesystem, glob_files
 
-from .helpers import build_object_resource, check_unique_table_names
-from .settings import BUCKET_URL, FILE_GLOB, NAMING_CONVENTION, WRITE_DISPOSITION
+from .helpers import (
+    build_image_resource,
+    build_object_resource,
+    check_unique_table_names,
+)
+from .settings import (
+    BUCKET_URL,
+    FILE_GLOB,
+    IMAGE_GLOB,
+    IMAGE_TABLE_NAME,
+    NAMING_CONVENTION,
+    WRITE_DISPOSITION,
+)
 
 
 @dlt.source(
@@ -24,9 +35,13 @@ def object_storage(
     # The same listing call `filesystem()` makes internally, so discovery and
     # reading agree on what is in the bucket.
     file_items = list(glob_files(fs_client, bucket_url, FILE_GLOB))
-    check_unique_table_names(file_items)
+    check_unique_table_names(file_items, IMAGE_TABLE_NAME)
 
     return [
         build_object_resource(bucket_url, fs_client, file_item, WRITE_DISPOSITION)
         for file_item in file_items
+    ] + [
+        build_image_resource(
+            bucket_url, fs_client, IMAGE_GLOB, IMAGE_TABLE_NAME, WRITE_DISPOSITION
+        )
     ]
