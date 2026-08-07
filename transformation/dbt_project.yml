@@ -27,6 +27,10 @@ models:
       +schema: staging
       +materialized: view
     intermediate:
+      +database: maplestory
+      +schema: intermediate
       +materialized: view
-    mart:
-      +materialized: view
+    marts:
+      +database: maplestory
+      +schema: marts
+      +materialized: view # normally materialized as table, but data is too small
