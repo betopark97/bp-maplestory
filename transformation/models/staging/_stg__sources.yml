@@ -747,3 +747,177 @@ sources:
             data_type: timestamptz
           - name: ongoing_flag
             data_type: varchar
+
+  - name: object_storage
+    description: |-
+      Parquet tables scraped from the web and archived under `s3://raw/{namespace}/`.
+      Every row carries the `fetched_at` / `content_hash` of the HTML it came from.
+    database: maplestory
+    schema: object_storage
+    tables:
+      - name: arcane_force_cost
+        description: "Arcane Symbol growth cost per Arcane River region and symbol level."
+        columns:
+          - name: 지역
+            data_type: varchar
+          - name: 레벨
+            data_type: bigint
+          - name: arc
+            data_type: bigint
+          - name: 스탯_일반
+            data_type: bigint
+          - name: 스탯_제논
+            data_type: bigint
+          - name: 스탯_데몬어벤져
+            data_type: bigint
+          - name: 필요_성장치
+            description: "The amount of symbols needed to reach the next level."
+            data_type: bigint
+          - name: 필요_메소
+            data_type: bigint
+          - name: 누적_성장치
+            data_type: bigint
+          - name: 누적_메소
+            data_type: bigint
+          - name: 누적_성장치_원문
+            data_type: bigint
+          - name: 누적_메소_원문
+            data_type: bigint
+          - name: fetched_at
+            data_type: date
+          - name: content_hash
+            data_type: varchar
+      - name: authentic_force_cost
+        description: "Authentic Symbol growth cost per Grandis region and symbol level."
+        columns:
+          - name: 지역
+            data_type: varchar
+          - name: 레벨
+            data_type: bigint
+          - name: aut
+            data_type: bigint
+          - name: 스탯_일반
+            data_type: bigint
+          - name: 스탯_제논
+            data_type: bigint
+          - name: 스탯_데몬어벤져
+            data_type: bigint
+          - name: 필요_성장치
+            description: "The amount of symbols needed to reach the next level."
+            data_type: bigint
+          - name: 필요_메소
+            data_type: bigint
+          - name: 누적_성장치
+            data_type: bigint
+          - name: 누적_메소
+            data_type: bigint
+          - name: 누적_성장치_원문
+            data_type: bigint
+          - name: 누적_메소_원문
+            data_type: bigint
+          - name: fetched_at
+            data_type: date
+          - name: content_hash
+            data_type: varchar
+      - name: boss_intense_crystal_reward
+        description: "Intense Power Crystal sale price per boss and difficulty (KMS, current pricing)."
+        columns:
+          - name: 주기
+            description: "Boss reset cycle: 일간 / 주간 / 월간."
+            data_type: varchar
+          - name: 난이도
+            data_type: varchar
+          - name: 보스
+            data_type: varchar
+          - name: 가격
+            description: "Printed with thousands separators, e.g. `114,000`."
+            data_type: varchar
+          - name: 최하_난이도_대비
+            description: "Multiplier against the boss's lowest difficulty, e.g. `3.06 배`."
+            data_type: varchar
+          - name: fetched_at
+            data_type: date
+          - name: content_hash
+            data_type: varchar
+      - name: hexa_boss_reward
+        description: "Sol Erda Energy dropped per boss and difficulty."
+        columns:
+          - name: 보스
+            data_type: varchar
+          - name: 난이도
+            data_type: varchar
+          - name: 솔_에르다의_기운
+            data_type: varchar
+          - name: fetched_at
+            data_type: date
+          - name: content_hash
+            data_type: varchar
+      - name: hexa_skill_cost
+        description: "Sol Erda / Sol Erda Fragment cost to level each HEXA core type."
+        columns:
+          - name: 레벨
+            description: "The level transition the cost applies to, e.g. `0→1`."
+            data_type: varchar
+          - name: 스킬_코어__솔_에르다
+            data_type: varchar
+          - name: 스킬_코어__솔_에르다_조각
+            data_type: varchar
+          - name: 3rd_스킬_코어__솔_에르다
+            data_type: varchar
+          - name: 3rd_스킬_코어__솔_에르다_조각
+            data_type: varchar
+          - name: 마스터리_코어__솔_에르다
+            data_type: varchar
+          - name: 마스터리_코어__솔_에르다_조각
+            data_type: varchar
+          - name: 강화_코어__솔_에르다
+            data_type: varchar
+          - name: 강화_코어__솔_에르다_조각
+            data_type: varchar
+          - name: 공용_코어__솔_에르다
+            data_type: varchar
+          - name: 공용_코어__솔_에르다_조각
+            data_type: varchar
+          - name: 직업군_공용_코어__솔_에르다
+            data_type: varchar
+          - name: 직업군_공용_코어__솔_에르다_조각
+            data_type: varchar
+          - name: fetched_at
+            data_type: date
+          - name: content_hash
+            data_type: varchar
+      - name: hexa_third_skill_core
+        description: Character class's 3rd HEXA skill core list.
+        columns:
+          - name: character_class
+            data_type: varchar
+          - name: third_skill_core_name
+            data_type: varchar
+          - name: fetched_at
+            data_type: date
+          - name: content_hash
+            data_type: varchar
+      - name: image
+        description: |-
+          Listing of every image blob archived under `raw/{namespace}/images/`. This
+          is a bucket listing rather than a scraped page, so it carries no
+          `fetched_at` / `content_hash` — `modification_date` is the freshness signal.
+          Postgres reaches a blob through `object_key`.
+        columns:
+          - name: object_key
+            description: "Bucket-qualified key, i.e. `raw/` + `relative_path`."
+            data_type: varchar
+          - name: relative_path
+            description: |-
+              Path below the bucket. Depth varies by namespace:
+              `{namespace}/images/{file}`, `{namespace}/images/{group}/{file}`, or
+              `{namespace}/images/sprite/{entity}/{file}`.
+            data_type: varchar
+          - name: file_name
+            data_type: varchar
+          - name: content_type
+            data_type: varchar
+          - name: size_in_bytes
+            data_type: bigint
+          - name: modification_date
+            data_type: timestamptz
