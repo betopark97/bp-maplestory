@@ -1,0 +1,120 @@
+version: 2
+
+models:
+  - name: dim_boss__details
+    description: "Details about bosses: name, cycle, difficulties, and rewards."
+    columns:
+      - name: boss__details_key
+        data_type: text
+        data_tests:
+          - not_null
+          - unique
+      - name: reset_cycle
+        data_type: varchar
+      - name: boss_difficulty
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: boss_name
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: crystal_price
+        data_type: bigint
+      - name: sol_erda_energy
+        data_type: integer
+      - name: image_full_path
+        data_type: varchar
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - boss_difficulty
+              - boss_name
+
+  - name: dim_character__details
+    description: "A character's stable identity: account, name, world, gender, creation date."
+    columns:
+      - name: character__details_key
+        data_type: text
+        data_tests:
+          - not_null
+          - unique
+      - name: account_id
+        data_type: text
+      - name: ocid
+        data_type: varchar
+      - name: character_name
+        data_type: varchar
+      - name: world_name
+        data_type: varchar
+      - name: character_gender
+        data_type: varchar
+      - name: character_date_create
+        data_type: timestamptz
+
+  - name: fct_character__boss_rewards
+    description: "One row per character, date, and registered boss in the scheduler."
+    columns:
+      - name: date
+        data_type: date
+      - name: character__details_key
+        data_type: text
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_character__details')
+                field: character__details_key
+      - name: boss__details_key
+        data_type: text
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_boss__details')
+                field: boss__details_key
+      - name: is_boss_contents__complete_flag
+        data_type: boolean
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - date
+              - character__details_key
+              - boss__details_key
+
+  - name: fct_character__details
+    description: "A character's daily progression: level, exp, popularity, and appearance."
+    columns:
+      - name: date
+        data_type: date
+      - name: character__details_key
+        data_type: text
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_character__details')
+                field: character__details_key
+      - name: character_class
+        data_type: varchar
+      - name: character_class_level
+        data_type: integer
+      - name: character_level
+        data_type: integer
+      - name: character_exp
+        data_type: bigint
+      - name: character_exp_rate
+        data_type: double precision
+      - name: character_image
+        data_type: varchar
+      - name: is_access_flag
+        data_type: boolean
+      - name: liberation_quest_clear
+        data_type: integer
+      - name: popularity
+        data_type: integer
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - date
+              - character__details_key
