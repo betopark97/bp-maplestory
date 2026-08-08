@@ -16,7 +16,7 @@ stg_nexon__character_basic as (
         character_exp_rate::float,
         character_image,
         character_date_create::timestamptz,
-        access_flag::boolean,
+        access_flag::boolean as is_access_flag,
         liberation_quest_clear::integer
     from character_basic
 )

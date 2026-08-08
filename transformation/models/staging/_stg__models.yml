@@ -61,10 +61,11 @@ models:
         data_type: varchar
       - name: character_date_create
         data_type: timestamptz
-      - name: access_flag
+      - name: is_access_flag
         data_type: boolean
       - name: liberation_quest_clear
         data_type: integer
+        description: 해방 퀘스트 완료 여부 (0:미완료, 1:제네시스 무기 해방, 2:데스티니 무기 1차 해방)
   - name: stg_nexon__character_popularity
     columns:
       - name: date
@@ -2101,8 +2102,8 @@ models:
         data_type: text
       - name: daily_contents__content_name
         data_type: text
-      - name: daily_contents__registration_flag
-        data_type: text
+      - name: is_daily_contents__registration_flag
+        data_type: boolean
       - name: weekly_contents__type
         data_type: text
       - name: weekly_contents__max_count
@@ -2113,20 +2114,20 @@ models:
         data_type: text
       - name: weekly_contents__content_name
         data_type: text
-      - name: weekly_contents__registration_flag
-        data_type: text
+      - name: is_weekly_contents__registration_flag
+        data_type: boolean
       - name: boss_contents__cycle
         data_type: text
       - name: boss_contents__difficulty
         data_type: text
       - name: boss_contents__content_name
         data_type: text
-      - name: boss_contents__complete_flag
-        data_type: text
+      - name: is_boss_contents__complete_flag
+        data_type: boolean
       - name: boss_contents__list_order_no
         data_type: integer
-      - name: boss_contents__registration_flag
-        data_type: text
+      - name: is_boss_contents__registration_flag
+        data_type: boolean
   - name: stg_nexon__notice
     columns:
       - name: title

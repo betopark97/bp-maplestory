@@ -120,19 +120,19 @@ stg_nexon__scheduler_character_state as (
         all_lists.daily_contents__now_count,
         all_lists.daily_contents__quest_state,
         all_lists.daily_contents__content_name,
-        all_lists.daily_contents__registration_flag,
+        all_lists.daily_contents__registration_flag::boolean as is_daily_contents__registration_flag,
         all_lists.weekly_contents__type,
         all_lists.weekly_contents__max_count,
         all_lists.weekly_contents__now_count,
         all_lists.weekly_contents__quest_state,
         all_lists.weekly_contents__content_name,
-        all_lists.weekly_contents__registration_flag,
+        all_lists.weekly_contents__registration_flag::boolean as is_weekly_contents__registration_flag,
         all_lists.boss_contents__cycle,
         all_lists.boss_contents__difficulty,
         all_lists.boss_contents__content_name,
-        all_lists.boss_contents__complete_flag,
+        all_lists.boss_contents__complete_flag::boolean as is_boss_contents__complete_flag,
         all_lists.boss_contents__list_order_no,
-        all_lists.boss_contents__registration_flag
+        all_lists.boss_contents__registration_flag::boolean as is_boss_contents__registration_flag
     from spine
     left join all_lists using (date, ocid)
 )
