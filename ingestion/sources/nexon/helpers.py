@@ -77,7 +77,14 @@ def build_ocid_child(endpoint_name, endpoint_config, parent, client, date):
         if is_error_response(response, endpoint_name, identity):
             return
 
-        yield {**identity, **response}
+        # The response echoes `date` back as a KST timestamp
+        # (2026-07-28T00:00+09:00), which dlt normalizes to UTC before casting to
+        # a date, landing it a day early. Re-stamp so the merge key keeps the
+        # plain YYYY-MM-DD that was queried. Updating in place, rather than
+        # unpacking identity last, keeps date/ocid at the front of the row.
+        row = {**identity, **response}
+        row.update(identity)
+        yield row
 
     return _resource
 
