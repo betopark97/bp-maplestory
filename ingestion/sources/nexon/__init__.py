@@ -12,14 +12,15 @@ from .settings import BASE_URL, ENDPOINTS, MIN_TRACK_LEVEL
 
 
 @dlt.source(name="nexon", max_table_nesting=0)
-def nexon(api_key: str = dlt.secrets.value):
+def nexon(api_key: str = dlt.secrets.value, date: str = None):
     client = RESTClient(
         base_url=BASE_URL,
         auth=APIKeyAuth(name="x-nxopen-api-key", api_key=api_key, location="header"),
     )
 
-    # This is a default date value for optional date parameters. It defaults to latest - 1 day.
-    date = default_date()
+    # Value for optional date parameters. Backfills pass one in; otherwise it
+    # defaults to latest - 1 day.
+    date = date or default_date()
 
     # User Endpoints
     @dlt.resource(name="character_list", write_disposition="replace")

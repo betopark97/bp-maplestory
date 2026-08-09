@@ -9,6 +9,10 @@ BASE_URL = "https://open.api.nexon.com"
 MIN_TRACK_LEVEL = 260
 REQUEST_DELAY = 0.3  # seconds
 
+# Earliest date the API serves character data for. Older dates come back as an
+# invalid-parameter error envelope rather than an HTTP error.
+MIN_DATE = "2023-12-21"
+
 # -------------------------------------------------------------------------------------
 # Endpoints (relative to BASE_URL)
 # -------------------------------------------------------------------------------------
