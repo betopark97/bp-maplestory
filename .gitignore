@@ -32,3 +32,6 @@ ingestion/notebooks/
 
 # Claude Code
 .claude/
+
+# Editor
+.vscode/
