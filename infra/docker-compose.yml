@@ -16,6 +16,8 @@ services:
     volumes:
       # postgres:18+ places data in a versioned subdir; mount the parent.
       - pgdata:/var/lib/postgresql
+      # Runs once, on an empty data directory only. See initdb/01-databases.sql.
+      - ./initdb:/docker-entrypoint-initdb.d:ro
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
       interval: 10s

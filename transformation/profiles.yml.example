@@ -1,14 +1,38 @@
-# Copy to profiles.yml and fill in. profiles.yml is gitignored.
+# Copy to profiles.yml and fill in nothing -- every credential is read from the
+# environment. Set them in transformation/.env; `make transformation-run` sources
+# it before invoking dbt, because dbt Core does not read a .env itself.
+#
 # Run dbt with: uv run dbt <cmd> --profiles-dir .
+#
+# The outputs differ in `dbname` and nothing else. That is the whole environment
+# boundary: the database carries the environment, the schema carries only the
+# layer, so every model, source and query is identical across targets.
+#
+# `schema:` stays `public` and is unused by models -- macros/generate_schema_name.sql
+# overrides it with the bare layer name. It is the fallback for nodes that carry
+# no +schema of their own, which in practice means tests.
 transformation:
   target: dev
   outputs:
     dev:
       type: postgres
-      host: localhost
-      port: 5432
-      user: postgres
-      password: ""          # fill in
-      dbname: maplestory
-      schema: analytics      # dbt build schema
-      threads: 4
+      host: "{{ env_var('POSTGRES_HOST', 'localhost') }}"
+      port: "{{ env_var('POSTGRES_PORT', '5432') | int }}"
+      user: "{{ env_var('POSTGRES_USER') }}"
+      password: "{{ env_var('POSTGRES_PASSWORD') }}"
+      dbname: dev_maplestory
+      schema: public
+      threads: 16
+    # prod_maplestory does not exist yet -- prod is deferred until there is an
+    # MVP and a trusted Dagster behind it. The output is written now because it
+    # is the proof that environment is a connection and not a string baked into
+    # the models: standing prod up requires no change to this file.
+    prod:
+      type: postgres
+      host: "{{ env_var('POSTGRES_HOST', 'localhost') }}"
+      port: "{{ env_var('POSTGRES_PORT', '5432') | int }}"
+      user: "{{ env_var('POSTGRES_USER') }}"
+      password: "{{ env_var('POSTGRES_PASSWORD') }}"
+      dbname: prod_maplestory
+      schema: public
+      threads: 16

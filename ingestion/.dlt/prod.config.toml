@@ -1,0 +1,12 @@
+# prod profile overlay -- see dev.config.toml for how the split works.
+#
+# `prod_maplestory` does not exist yet, deliberately. Prod is deferred until
+# there is something worth promoting into it (MVP, then Dagster, then trust),
+# and a prod database with nothing scheduled behind it only goes stale.
+#
+# This file is written anyway because it is the only thing prod needs besides
+# the database itself: standing prod up is a CREATE DATABASE and a dump, with
+# no code change. Running under this profile resolves the name and then fails
+# to connect, which is the expected outcome until the database is created.
+[destination.postgres.credentials]
+database = "prod_maplestory"

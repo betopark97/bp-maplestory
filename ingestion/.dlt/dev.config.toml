@@ -1,0 +1,10 @@
+# dev profile overlay. dlt reads `{profile}.config.toml` on top of `config.toml`,
+# so this file only has to carry what differs between environments.
+#
+# The only thing that differs is which database the destination writes to. A
+# database name is not a secret, so the environment -> database map is committed
+# here while the credential itself stays in the gitignored secrets.toml. dlt
+# resolves credential fields one at a time across providers, which is what lets
+# the two halves live in different files.
+[destination.postgres.credentials]
+database = "dev_maplestory"

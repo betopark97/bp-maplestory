@@ -7,7 +7,7 @@ def run() -> None:
     pipeline = dlt.pipeline(
         pipeline_name="google_sheets",
         destination="postgres",
-        dataset_name="google_sheets",
+        dataset_name="raw_google_sheets",
     )
     load_info = pipeline.run(google_sheets())
     print(load_info)

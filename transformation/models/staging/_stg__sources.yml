@@ -3,8 +3,7 @@ version: 2
 sources:
   - name: nexon
     description: "Data provided by the Nexon API."
-    database: maplestory
-    schema: nexon
+    schema: raw_nexon
     tables:
       - name: user_achievement
         description: "User's in-game achievement info."
@@ -752,8 +751,7 @@ sources:
     description: |-
       Parquet tables scraped from the web and archived under `s3://raw/{namespace}/`.
       Every row carries the `fetched_at` / `content_hash` of the HTML it came from.
-    database: maplestory
-    schema: object_storage
+    schema: raw_object_storage
     tables:
       - name: arcane_force_cost
         description: "Arcane Symbol growth cost per Arcane River region and symbol level."

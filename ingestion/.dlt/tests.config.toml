@@ -1,0 +1,10 @@
+# tests profile overlay -- see dev.config.toml for how the split works.
+#
+# `tests` is one of dlt's built-in profiles and, like `dev`, is local-only
+# (dlt/_workspace/profile.py::LOCAL_PROFILES), so it is never synced anywhere.
+# It exists so a test run cannot touch the data you are working against. It
+# points at a real Postgres database rather than a local duckdb file because
+# the failures worth catching here are Postgres-specific: jsonb handling,
+# merge DDL, the 63-byte identifier limit.
+[destination.postgres.credentials]
+database = "test_maplestory"

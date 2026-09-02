@@ -17,20 +17,20 @@ clean-targets:
   - "target"
   - "dbt_packages"
 
+# The database carries the environment (dev_maplestory / prod_maplestory) and
+# comes from the target in profiles.yml, so no model sets +database. The schema
+# carries only the layer, and is the same name in every environment.
 models:
   +persist_docs:
     relation: true
     columns: true
   transformation:
     staging:
-      +database: maplestory
       +schema: staging
       +materialized: view
     intermediate:
-      +database: maplestory
       +schema: intermediate
       +materialized: view
     marts:
-      +database: maplestory
       +schema: marts
       +materialized: view # normally materialized as table, but data is too small

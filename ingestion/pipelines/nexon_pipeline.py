@@ -57,7 +57,7 @@ def run(date: str | None = None, refresh: str | None = None) -> None:
     pipeline = dlt.pipeline(
         pipeline_name="nexon",
         destination="postgres",
-        dataset_name="nexon",
+        dataset_name="raw_nexon",
     )
     load_info = pipeline.run(nexon(date=date), refresh=refresh)
     print(load_info)

@@ -12,7 +12,14 @@ wheels/
 # Secrets
 .env
 **/.dlt/secrets.toml
+**/.dlt/*.secrets.toml
 transformation/profiles.yml
+
+# dlt workspace runtime state. The `.workspace` marker and the per-profile
+# {profile}.config.toml files ARE committed -- only what dlt writes is not.
+ingestion/.dlt/state/
+ingestion/.dlt/data/
+ingestion/.dlt/profile-name
 
 # dbt
 transformation/target/

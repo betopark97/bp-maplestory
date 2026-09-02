@@ -7,7 +7,7 @@ def run() -> None:
     pipeline = dlt.pipeline(
         pipeline_name="object_storage",
         destination="postgres",
-        dataset_name="object_storage",
+        dataset_name="raw_object_storage",
     )
     load_info = pipeline.run(object_storage())
     print(load_info)
