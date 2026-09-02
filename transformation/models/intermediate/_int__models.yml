@@ -1,0 +1,91 @@
+version: 2
+
+models:
+  - name: int_character__abilities
+    description: |-
+      One row per character, date, and ability line, with all three ability
+      presets flattened side by side so a preset comparison needs no self-join.
+    columns:
+      - name: snapshot_date
+        data_type: date
+      - name: ocid
+        data_type: varchar
+      - name: ability_no
+        data_type: integer
+      - name: preset_1_grade
+        data_type: text
+      - name: preset_1_value
+        data_type: text
+      - name: preset_2_grade
+        data_type: text
+      - name: preset_2_value
+        data_type: text
+      - name: preset_3_grade
+        data_type: text
+      - name: preset_3_value
+        data_type: text
+      - name: remain_fame
+        data_type: integer
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - snapshot_date
+              - ocid
+              - ability_no
+
+  - name: int_character__hexa_cores
+    description: |-
+      One row per character, date, and equipped HEXA core. Event cores report a
+      level of 0 and carry their real level in the event level column, so the two
+      are coalesced into a single usable level.
+    columns:
+      - name: snapshot_date
+        data_type: date
+      - name: ocid
+        data_type: varchar
+      - name: hexa_core_name
+        data_type: text
+      - name: hexa_core_type
+        data_type: text
+      - name: hexa_core_level
+        description: "The event level where the core is an event core, the plain level otherwise."
+        data_type: integer
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - snapshot_date
+              - ocid
+              - hexa_core_name
+
+  - name: int_hexa__skill_costs
+    description: |-
+      The wide HEXA cost table unpivoted to one row per core type and level
+      transition, so a cost lookup keys off a core type instead of a column name.
+    columns:
+      - name: core_type
+        data_type: text
+        data_tests:
+          - accepted_values:
+              arguments:
+                values:
+                  - skill_core
+                  - third_skill_core
+                  - mastery_core
+                  - enhancement_core
+                  - common_core
+                  - class_common_core
+      - name: level_up
+        description: "The level transition the cost applies to, e.g. `0→1`."
+        data_type: varchar
+      - name: sol_erda
+        data_type: varchar
+      - name: sol_erda_fragment
+        data_type: varchar
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - core_type
+              - level_up

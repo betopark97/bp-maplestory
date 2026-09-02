@@ -1,10 +1,10 @@
 version: 2
 
 models:
-  - name: dim_boss__details
+  - name: dim_maplestory__bosses
     description: "Details about bosses: name, cycle, difficulties, and rewards."
     columns:
-      - name: boss__details_key
+      - name: boss_id
         data_type: text
         data_tests:
           - not_null
@@ -32,10 +32,10 @@ models:
               - boss_difficulty
               - boss_name
 
-  - name: dim_character__details
+  - name: dim_maplestory__characters
     description: "A character's stable identity: account, name, world, gender, creation date."
     columns:
-      - name: character__details_key
+      - name: character_id
         data_type: text
         data_tests:
           - not_null
@@ -53,47 +53,47 @@ models:
       - name: character_date_create
         data_type: timestamptz
 
-  - name: fct_character__boss_rewards
+  - name: fct_maplestory__boss_clears_daily
     description: "One row per character, date, and registered boss in the scheduler."
     columns:
-      - name: date
+      - name: snapshot_date
         data_type: date
-      - name: character__details_key
+      - name: character_id
         data_type: text
         data_tests:
           - relationships:
               arguments:
-                to: ref('dim_character__details')
-                field: character__details_key
-      - name: boss__details_key
+                to: ref('dim_maplestory__characters')
+                field: character_id
+      - name: boss_id
         data_type: text
         data_tests:
           - relationships:
               arguments:
-                to: ref('dim_boss__details')
-                field: boss__details_key
-      - name: is_boss_contents__complete_flag
+                to: ref('dim_maplestory__bosses')
+                field: boss_id
+      - name: is_boss_contents__completed
         data_type: boolean
     data_tests:
       - dbt_utils.unique_combination_of_columns:
           arguments:
             combination_of_columns:
-              - date
-              - character__details_key
-              - boss__details_key
+              - snapshot_date
+              - character_id
+              - boss_id
 
-  - name: fct_character__details
+  - name: fct_maplestory__character_stats_daily
     description: "A character's daily progression: level, exp, popularity, and appearance."
     columns:
-      - name: date
+      - name: snapshot_date
         data_type: date
-      - name: character__details_key
+      - name: character_id
         data_type: text
         data_tests:
           - relationships:
               arguments:
-                to: ref('dim_character__details')
-                field: character__details_key
+                to: ref('dim_maplestory__characters')
+                field: character_id
       - name: character_class
         data_type: varchar
       - name: character_class_level
@@ -106,9 +106,9 @@ models:
         data_type: double precision
       - name: character_image
         data_type: varchar
-      - name: is_access_flag
+      - name: is_accessed
         data_type: boolean
-      - name: liberation_quest_clear
+      - name: liberation_quest_stage
         data_type: integer
       - name: popularity
         data_type: integer
@@ -116,5 +116,5 @@ models:
       - dbt_utils.unique_combination_of_columns:
           arguments:
             combination_of_columns:
-              - date
-              - character__details_key
+              - snapshot_date
+              - character_id

@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: stg_nexon__user_achievement
+  - name: stg_nexon__user_achievements
     columns:
       - name: account_list__account_id
         data_type: text
@@ -9,7 +9,7 @@ models:
         data_type: text
       - name: account_list__achievement_achieve__achievement_description
         data_type: text
-  - name: stg_nexon__character_list
+  - name: stg_nexon__characters
     description: "A list of characters' metadata."
     columns:
       - name: account_list__account_id
@@ -35,9 +35,9 @@ models:
       - name: account_list__character_list__character_level
         description: "Character's level."
         data_type: integer
-  - name: stg_nexon__character_basic
+  - name: stg_nexon__character_profiles
     columns:
-      - name: date
+      - name: snapshot_date
         data_type: date
       - name: ocid
         data_type: varchar
@@ -61,22 +61,22 @@ models:
         data_type: varchar
       - name: character_date_create
         data_type: timestamptz
-      - name: is_access_flag
+      - name: is_accessed
         data_type: boolean
-      - name: liberation_quest_clear
+      - name: liberation_quest_stage
         data_type: integer
         description: 해방 퀘스트 완료 여부 (0:미완료, 1:제네시스 무기 해방, 2:데스티니 무기 1차 해방)
-  - name: stg_nexon__character_popularity
+  - name: stg_nexon__character_popularities
     columns:
-      - name: date
+      - name: snapshot_date
         data_type: date
       - name: ocid
         data_type: varchar
       - name: popularity
         data_type: integer
-  - name: stg_nexon__character_stat
+  - name: stg_nexon__character_stats
     columns:
-      - name: date
+      - name: snapshot_date
         data_type: date
       - name: ocid
         data_type: varchar
@@ -88,9 +88,9 @@ models:
         data_type: double precision
       - name: remain_ap
         data_type: integer
-  - name: stg_nexon__character_hyper_stat
+  - name: stg_nexon__character_hyper_stats
     columns:
-      - name: date
+      - name: snapshot_date
         data_type: date
       - name: ocid
         data_type: varchar
@@ -126,9 +126,9 @@ models:
         data_type: text
       - name: hyper_stat_preset_3_remain_point
         data_type: integer
-  - name: stg_nexon__character_propensity
+  - name: stg_nexon__character_propensities
     columns:
-      - name: date
+      - name: snapshot_date
         data_type: date
       - name: ocid
         data_type: varchar
@@ -144,9 +144,9 @@ models:
         data_type: integer
       - name: charm_level
         data_type: integer
-  - name: stg_nexon__character_ability
+  - name: stg_nexon__character_abilities
     columns:
-      - name: date
+      - name: snapshot_date
         data_type: date
       - name: ocid
         data_type: varchar
@@ -176,9 +176,9 @@ models:
         data_type: text
       - name: ability_preset_3__ability_info__ability_value
         data_type: text
-  - name: stg_nexon__character_item_equipment
+  - name: stg_nexon__character_item_equipments
     columns:
-      - name: date
+      - name: snapshot_date
         data_type: date
       - name: ocid
         data_type: varchar
@@ -212,8 +212,8 @@ models:
         data_type: integer
       - name: item_equipment_preset_1__cuttable_count
         data_type: integer
-      - name: item_equipment_preset_1__freestyle_flag
-        data_type: text
+      - name: is_item_equipment_preset_1__freestyle
+        data_type: boolean
       - name: item_equipment_preset_1__scroll_upgrade
         data_type: integer
       - name: item_equipment_preset_1__add_option__dex
@@ -344,8 +344,8 @@ models:
         data_type: integer
       - name: item_equipment_preset_1__total_option__equipment_level_decrease
         data_type: integer
-      - name: item_equipment_preset_1__golden_hammer_flag
-        data_type: text
+      - name: has_item_equipment_preset_1__golden_hammer
+        data_type: boolean
       - name: item_equipment_preset_1__potential_option_1
         data_type: text
       - name: item_equipment_preset_1__potential_option_2
@@ -376,10 +376,10 @@ models:
         data_type: integer
       - name: item_equipment_preset_1__starforce_option__attack_power
         data_type: integer
-      - name: item_equipment_preset_1__potential_option_flag
-        data_type: text
-      - name: item_equipment_preset_1__starforce_scroll_flag
-        data_type: text
+      - name: has_item_equipment_preset_1__potential_option
+        data_type: boolean
+      - name: has_item_equipment_preset_1__starforce_scroll
+        data_type: boolean
       - name: item_equipment_preset_1__potential_option_grade
         data_type: text
       - name: item_equipment_preset_1__exceptional_option__dex
@@ -412,8 +412,8 @@ models:
         data_type: text
       - name: item_equipment_preset_1__additional_potential_option_3
         data_type: text
-      - name: item_equipment_preset_1__additional_potential_option_flag
-        data_type: text
+      - name: has_item_equipment_preset_1__additional_potential_option
+        data_type: boolean
       - name: item_equipment_preset_1__additional_potential_option_grade
         data_type: text
       - name: item_equipment_preset_2__icon
@@ -436,8 +436,8 @@ models:
         data_type: integer
       - name: item_equipment_preset_2__cuttable_count
         data_type: integer
-      - name: item_equipment_preset_2__freestyle_flag
-        data_type: text
+      - name: is_item_equipment_preset_2__freestyle
+        data_type: boolean
       - name: item_equipment_preset_2__scroll_upgrade
         data_type: integer
       - name: item_equipment_preset_2__add_option__dex
@@ -568,8 +568,8 @@ models:
         data_type: integer
       - name: item_equipment_preset_2__total_option__equipment_level_decrease
         data_type: integer
-      - name: item_equipment_preset_2__golden_hammer_flag
-        data_type: text
+      - name: has_item_equipment_preset_2__golden_hammer
+        data_type: boolean
       - name: item_equipment_preset_2__potential_option_1
         data_type: text
       - name: item_equipment_preset_2__potential_option_2
@@ -600,10 +600,10 @@ models:
         data_type: integer
       - name: item_equipment_preset_2__starforce_option__attack_power
         data_type: integer
-      - name: item_equipment_preset_2__potential_option_flag
-        data_type: text
-      - name: item_equipment_preset_2__starforce_scroll_flag
-        data_type: text
+      - name: has_item_equipment_preset_2__potential_option
+        data_type: boolean
+      - name: has_item_equipment_preset_2__starforce_scroll
+        data_type: boolean
       - name: item_equipment_preset_2__potential_option_grade
         data_type: text
       - name: item_equipment_preset_2__exceptional_option__dex
@@ -636,8 +636,8 @@ models:
         data_type: text
       - name: item_equipment_preset_2__additional_potential_option_3
         data_type: text
-      - name: item_equipment_preset_2__additional_potential_option_flag
-        data_type: text
+      - name: has_item_equipment_preset_2__additional_potential_option
+        data_type: boolean
       - name: item_equipment_preset_2__additional_potential_option_grade
         data_type: text
       - name: item_equipment_preset_3__icon
@@ -660,8 +660,8 @@ models:
         data_type: integer
       - name: item_equipment_preset_3__cuttable_count
         data_type: integer
-      - name: item_equipment_preset_3__freestyle_flag
-        data_type: text
+      - name: is_item_equipment_preset_3__freestyle
+        data_type: boolean
       - name: item_equipment_preset_3__scroll_upgrade
         data_type: integer
       - name: item_equipment_preset_3__add_option__dex
@@ -792,8 +792,8 @@ models:
         data_type: integer
       - name: item_equipment_preset_3__total_option__equipment_level_decrease
         data_type: integer
-      - name: item_equipment_preset_3__golden_hammer_flag
-        data_type: text
+      - name: has_item_equipment_preset_3__golden_hammer
+        data_type: boolean
       - name: item_equipment_preset_3__potential_option_1
         data_type: text
       - name: item_equipment_preset_3__potential_option_2
@@ -824,10 +824,10 @@ models:
         data_type: integer
       - name: item_equipment_preset_3__starforce_option__attack_power
         data_type: integer
-      - name: item_equipment_preset_3__potential_option_flag
-        data_type: text
-      - name: item_equipment_preset_3__starforce_scroll_flag
-        data_type: text
+      - name: has_item_equipment_preset_3__potential_option
+        data_type: boolean
+      - name: has_item_equipment_preset_3__starforce_scroll
+        data_type: boolean
       - name: item_equipment_preset_3__potential_option_grade
         data_type: text
       - name: item_equipment_preset_3__exceptional_option__dex
@@ -860,13 +860,13 @@ models:
         data_type: text
       - name: item_equipment_preset_3__additional_potential_option_3
         data_type: text
-      - name: item_equipment_preset_3__additional_potential_option_flag
-        data_type: text
+      - name: has_item_equipment_preset_3__additional_potential_option
+        data_type: boolean
       - name: item_equipment_preset_3__additional_potential_option_grade
         data_type: text
-  - name: stg_nexon__character_cash_item_equipment
+  - name: stg_nexon__character_cash_item_equipments
     columns:
-      - name: date
+      - name: snapshot_date
         data_type: date
       - name: ocid
         data_type: varchar
@@ -892,8 +892,8 @@ models:
         data_type: text
       - name: cash_item_equipment_base__name
         data_type: text
-      - name: cash_item_equipment_base__freestyle_flag
-        data_type: text
+      - name: is_cash_item_equipment_base__freestyle
+        data_type: boolean
       - name: cash_item_equipment_base__label
         data_type: text
       - name: cash_item_equipment_base__option
@@ -934,8 +934,8 @@ models:
         data_type: text
       - name: cash_item_equipment_preset_1__name
         data_type: text
-      - name: cash_item_equipment_preset_1__freestyle_flag
-        data_type: text
+      - name: is_cash_item_equipment_preset_1__freestyle
+        data_type: boolean
       - name: cash_item_equipment_preset_1__label
         data_type: text
       - name: cash_item_equipment_preset_1__option
@@ -976,8 +976,8 @@ models:
         data_type: text
       - name: cash_item_equipment_preset_2__name
         data_type: text
-      - name: cash_item_equipment_preset_2__freestyle_flag
-        data_type: text
+      - name: is_cash_item_equipment_preset_2__freestyle
+        data_type: boolean
       - name: cash_item_equipment_preset_2__label
         data_type: text
       - name: cash_item_equipment_preset_2__option
@@ -1018,8 +1018,8 @@ models:
         data_type: text
       - name: cash_item_equipment_preset_3__name
         data_type: text
-      - name: cash_item_equipment_preset_3__freestyle_flag
-        data_type: text
+      - name: is_cash_item_equipment_preset_3__freestyle
+        data_type: boolean
       - name: cash_item_equipment_preset_3__label
         data_type: text
       - name: cash_item_equipment_preset_3__option
@@ -1060,8 +1060,8 @@ models:
         data_type: text
       - name: additional_cash_item_equipment_base__name
         data_type: text
-      - name: additional_cash_item_equipment_base__freestyle_flag
-        data_type: text
+      - name: is_additional_cash_item_equipment_base__freestyle
+        data_type: boolean
       - name: additional_cash_item_equipment_base__label
         data_type: text
       - name: additional_cash_item_equipment_base__option
@@ -1102,8 +1102,8 @@ models:
         data_type: text
       - name: additional_cash_item_equipment_preset_1__name
         data_type: text
-      - name: additional_cash_item_equipment_preset_1__freestyle_flag
-        data_type: text
+      - name: is_additional_cash_item_equipment_preset_1__freestyle
+        data_type: boolean
       - name: additional_cash_item_equipment_preset_1__label
         data_type: text
       - name: additional_cash_item_equipment_preset_1__option
@@ -1144,8 +1144,8 @@ models:
         data_type: text
       - name: additional_cash_item_equipment_preset_2__name
         data_type: text
-      - name: additional_cash_item_equipment_preset_2__freestyle_flag
-        data_type: text
+      - name: is_additional_cash_item_equipment_preset_2__freestyle
+        data_type: boolean
       - name: additional_cash_item_equipment_preset_2__label
         data_type: text
       - name: additional_cash_item_equipment_preset_2__option
@@ -1186,8 +1186,8 @@ models:
         data_type: text
       - name: additional_cash_item_equipment_preset_3__name
         data_type: text
-      - name: additional_cash_item_equipment_preset_3__freestyle_flag
-        data_type: text
+      - name: is_additional_cash_item_equipment_preset_3__freestyle
+        data_type: boolean
       - name: additional_cash_item_equipment_preset_3__label
         data_type: text
       - name: additional_cash_item_equipment_preset_3__option
@@ -1216,9 +1216,9 @@ models:
         data_type: jsonb
       - name: additional_cash_item_equipment_preset_3__coloring_prism
         data_type: jsonb
-  - name: stg_nexon__character_symbol_equipment
+  - name: stg_nexon__character_symbols
     columns:
-      - name: date
+      - name: snapshot_date
         data_type: date
       - name: ocid
         data_type: varchar
@@ -1256,9 +1256,9 @@ models:
         data_type: integer
       - name: symbol__symbol_other_effect_description
         data_type: text
-  - name: stg_nexon__character_set_effect
+  - name: stg_nexon__character_set_effects
     columns:
-      - name: date
+      - name: snapshot_date
         data_type: date
       - name: ocid
         data_type: varchar
@@ -1272,9 +1272,9 @@ models:
         data_type: text
       - name: set_effect__total_set_count
         data_type: integer
-  - name: stg_nexon__character_beauty_equipment
+  - name: stg_nexon__character_beauty_equipments
     columns:
-      - name: date
+      - name: snapshot_date
         data_type: date
       - name: ocid
         data_type: varchar
@@ -1290,8 +1290,8 @@ models:
         data_type: text
       - name: character_hair__mix_rate
         data_type: integer
-      - name: character_hair__freestyle_flag
-        data_type: text
+      - name: is_character_hair__freestyle
+        data_type: boolean
       - name: character_face__face_name
         data_type: text
       - name: character_face__base_color
@@ -1300,8 +1300,8 @@ models:
         data_type: text
       - name: character_face__mix_rate
         data_type: integer
-      - name: character_face__freestyle_flag
-        data_type: text
+      - name: is_character_face__freestyle
+        data_type: boolean
       - name: character_skin__skin_name
         data_type: text
       - name: character_skin__color_style
@@ -1312,9 +1312,9 @@ models:
         data_type: integer
       - name: character_skin__brightness
         data_type: integer
-  - name: stg_nexon__character_android_equipment
+  - name: stg_nexon__character_android_equipments
     columns:
-      - name: date
+      - name: snapshot_date
         data_type: date
       - name: ocid
         data_type: varchar
@@ -1334,8 +1334,8 @@ models:
         data_type: text
       - name: android_hair__mix_rate
         data_type: integer
-      - name: android_hair__freestyle_flag
-        data_type: text
+      - name: is_android_hair__freestyle
+        data_type: boolean
       - name: android_face__face_name
         data_type: text
       - name: android_face__base_color
@@ -1344,8 +1344,8 @@ models:
         data_type: text
       - name: android_face__mix_rate
         data_type: integer
-      - name: android_face__freestyle_flag
-        data_type: text
+      - name: is_android_face__freestyle
+        data_type: boolean
       - name: android_skin__skin_name
         data_type: text
       - name: android_skin__color_style
@@ -1356,16 +1356,16 @@ models:
         data_type: integer
       - name: android_skin__brightness
         data_type: integer
-      - name: android_ear_sensor_clip_flag
-        data_type: varchar
+      - name: has_android_ear_sensor_clip
+        data_type: boolean
       - name: android_gender
         data_type: varchar
       - name: android_grade
         data_type: varchar
-      - name: android_non_humanoid_flag
-        data_type: varchar
-      - name: android_shop_usable_flag
-        data_type: varchar
+      - name: is_android_non_humanoid
+        data_type: boolean
+      - name: is_android_shop_usable
+        data_type: boolean
       - name: preset_no
         data_type: bigint
       - name: android_preset_1__android_name
@@ -1384,8 +1384,8 @@ models:
         data_type: text
       - name: android_preset_1__android_hair__mix_rate
         data_type: integer
-      - name: android_preset_1__android_hair__freestyle_flag
-        data_type: text
+      - name: is_android_preset_1__android_hair__freestyle
+        data_type: boolean
       - name: android_preset_1__android_face__face_name
         data_type: text
       - name: android_preset_1__android_face__base_color
@@ -1394,8 +1394,8 @@ models:
         data_type: text
       - name: android_preset_1__android_face__mix_rate
         data_type: integer
-      - name: android_preset_1__android_face__freestyle_flag
-        data_type: text
+      - name: is_android_preset_1__android_face__freestyle
+        data_type: boolean
       - name: android_preset_1__android_skin__skin_name
         data_type: text
       - name: android_preset_1__android_skin__color_style
@@ -1406,16 +1406,16 @@ models:
         data_type: integer
       - name: android_preset_1__android_skin__brightness
         data_type: integer
-      - name: android_preset_1__android_ear_sensor_clip_flag
-        data_type: text
+      - name: has_android_preset_1__android_ear_sensor_clip
+        data_type: boolean
       - name: android_preset_1__android_gender
         data_type: text
       - name: android_preset_1__android_grade
         data_type: text
-      - name: android_preset_1__android_non_humanoid_flag
-        data_type: text
-      - name: android_preset_1__android_shop_usable_flag
-        data_type: text
+      - name: is_android_preset_1__android_non_humanoid
+        data_type: boolean
+      - name: is_android_preset_1__android_shop_usable
+        data_type: boolean
       - name: android_cash_item_equipment__cash_item_equipment_slot
         data_type: text
       - name: android_cash_item_equipment__cash_item_equipment_part
@@ -1432,8 +1432,8 @@ models:
         data_type: text
       - name: android_cash_item_equipment__cash_item_name
         data_type: text
-      - name: android_cash_item_equipment__freestyle_flag
-        data_type: text
+      - name: is_android_cash_item_equipment__freestyle
+        data_type: boolean
       - name: android_cash_item_equipment__cash_item_label
         data_type: text
       - name: android_cash_item_equipment__cash_item_option
@@ -1446,14 +1446,14 @@ models:
         data_type: jsonb
       - name: android_cash_item_equipment__cash_item_coloring_prism
         data_type: jsonb
-  - name: stg_nexon__character_pet_equipment
+  - name: stg_nexon__character_pet_equipments
     columns:
-      - name: date
+      - name: snapshot_date
         data_type: date
       - name: ocid
         data_type: varchar
-      - name: pet_activate_flag
-        data_type: varchar
+      - name: is_pet_activated
+        data_type: boolean
       - name: pet_1_name
         data_type: varchar
       - name: pet_1_nickname
@@ -1708,9 +1708,9 @@ models:
         data_type: text
       - name: equipment_item_option__option_value
         data_type: text
-  - name: stg_nexon__character_link_skill
+  - name: stg_nexon__character_link_skills
     columns:
-      - name: date
+      - name: snapshot_date
         data_type: date
       - name: ocid
         data_type: varchar
@@ -1784,9 +1784,9 @@ models:
         data_type: text
       - name: character_owned_link_skill_preset_3__skill_description
         data_type: text
-  - name: stg_nexon__character_vmatrix
+  - name: stg_nexon__character_v_matrix_cores
     columns:
-      - name: date
+      - name: snapshot_date
         data_type: date
       - name: ocid
         data_type: varchar
@@ -1870,9 +1870,9 @@ models:
         data_type: text
       - name: character_v_core_equipment_preset_5__v_core_skill_3
         data_type: text
-  - name: stg_nexon__character_hexamatrix
+  - name: stg_nexon__character_hexa_cores
     columns:
-      - name: date
+      - name: snapshot_date
         data_type: date
       - name: ocid
         data_type: varchar
@@ -1886,9 +1886,9 @@ models:
         data_type: integer
       - name: character_hexa_core_equipment__linked_skill__hexa_skill_id
         data_type: text
-  - name: stg_nexon__character_hexamatrix_stat
+  - name: stg_nexon__character_hexa_matrix_stats
     columns:
-      - name: date
+      - name: snapshot_date
         data_type: date
       - name: ocid
         data_type: varchar
@@ -1912,9 +1912,9 @@ models:
         data_type: text
       - name: hexa_stat_core__sub_stat_level_2
         data_type: integer
-  - name: stg_nexon__character_other_stat
+  - name: stg_nexon__character_other_stats
     columns:
-      - name: date
+      - name: snapshot_date
         data_type: date
       - name: ocid
         data_type: varchar
@@ -1924,9 +1924,9 @@ models:
         data_type: text
       - name: other_stat__stat_info__stat_value
         data_type: text
-  - name: stg_nexon__character_ring_reserve_skill_equipment
+  - name: stg_nexon__character_ring_reserve_skills
     columns:
-      - name: date
+      - name: snapshot_date
         data_type: date
       - name: ocid
         data_type: varchar
@@ -1940,9 +1940,9 @@ models:
         data_type: varchar
       - name: special_ring_reserve_description
         data_type: varchar
-  - name: stg_nexon__user_union
+  - name: stg_nexon__user_unions
     columns:
-      - name: date
+      - name: snapshot_date
         data_type: date
       - name: ocid
         data_type: varchar
@@ -1956,9 +1956,9 @@ models:
         data_type: bigint
       - name: union_artifact_point
         data_type: integer
-  - name: stg_nexon__user_union_raider
+  - name: stg_nexon__user_union_raiders
     columns:
-      - name: date
+      - name: snapshot_date
         data_type: date
       - name: ocid
         data_type: varchar
@@ -2016,9 +2016,9 @@ models:
         data_type: bigint
       - name: union_occupied_stat__value
         data_type: text
-  - name: stg_nexon__user_union_artifact
+  - name: stg_nexon__user_union_artifacts
     columns:
-      - name: date
+      - name: snapshot_date
         data_type: date
       - name: ocid
         data_type: varchar
@@ -2030,8 +2030,8 @@ models:
         data_type: integer
       - name: union_artifact_crystal__name
         data_type: text
-      - name: union_artifact_crystal__validity_flag
-        data_type: text
+      - name: is_union_artifact_crystal__valid
+        data_type: boolean
       - name: union_artifact_crystal__date_expire
         data_type: timestamptz
       - name: union_artifact_crystal__level
@@ -2044,9 +2044,9 @@ models:
         data_type: text
       - name: artifact__source
         data_type: text
-  - name: stg_nexon__user_union_champion
+  - name: stg_nexon__user_union_champions
     columns:
-      - name: date
+      - name: snapshot_date
         data_type: date
       - name: ocid
         data_type: varchar
@@ -2072,9 +2072,9 @@ models:
         data_type: text
       - name: champion__source
         data_type: text
-  - name: stg_nexon__scheduler_character_state
+  - name: stg_nexon__character_daily_states
     columns:
-      - name: date
+      - name: snapshot_date
         data_type: date
       - name: ocid
         data_type: varchar
@@ -2102,7 +2102,7 @@ models:
         data_type: text
       - name: daily_contents__content_name
         data_type: text
-      - name: is_daily_contents__registration_flag
+      - name: is_daily_contents__registered
         data_type: boolean
       - name: weekly_contents__type
         data_type: text
@@ -2114,7 +2114,7 @@ models:
         data_type: text
       - name: weekly_contents__content_name
         data_type: text
-      - name: is_weekly_contents__registration_flag
+      - name: is_weekly_contents__registered
         data_type: boolean
       - name: boss_contents__cycle
         data_type: text
@@ -2122,13 +2122,13 @@ models:
         data_type: text
       - name: boss_contents__content_name
         data_type: text
-      - name: is_boss_contents__complete_flag
+      - name: is_boss_contents__completed
         data_type: boolean
       - name: boss_contents__list_order_no
         data_type: integer
-      - name: is_boss_contents__registration_flag
+      - name: is_boss_contents__registered
         data_type: boolean
-  - name: stg_nexon__notice
+  - name: stg_nexon__notices
     columns:
       - name: title
         data_type: varchar
@@ -2136,31 +2136,9 @@ models:
         data_type: varchar
       - name: notice_id
         data_type: bigint
-      - name: date
+      - name: posted_at
         data_type: timestamptz
-  - name: stg_nexon__notice_detail
-    columns:
-      - name: notice_id
-        data_type: bigint
-      - name: title
-        data_type: varchar
-      - name: url
-        data_type: varchar
-      - name: contents
-        data_type: varchar
-      - name: date
-        data_type: timestamptz
-  - name: stg_nexon__notice_update
-    columns:
-      - name: title
-        data_type: varchar
-      - name: url
-        data_type: varchar
-      - name: notice_id
-        data_type: bigint
-      - name: date
-        data_type: timestamptz
-  - name: stg_nexon__notice_update_detail
+  - name: stg_nexon__notice_details
     columns:
       - name: notice_id
         data_type: bigint
@@ -2170,9 +2148,31 @@ models:
         data_type: varchar
       - name: contents
         data_type: varchar
-      - name: date
+      - name: posted_at
         data_type: timestamptz
-  - name: stg_nexon__notice_event
+  - name: stg_nexon__update_notices
+    columns:
+      - name: title
+        data_type: varchar
+      - name: url
+        data_type: varchar
+      - name: notice_id
+        data_type: bigint
+      - name: posted_at
+        data_type: timestamptz
+  - name: stg_nexon__update_notice_details
+    columns:
+      - name: notice_id
+        data_type: bigint
+      - name: title
+        data_type: varchar
+      - name: url
+        data_type: varchar
+      - name: contents
+        data_type: varchar
+      - name: posted_at
+        data_type: timestamptz
+  - name: stg_nexon__event_notices
     columns:
       - name: title
         data_type: varchar
@@ -2182,13 +2182,13 @@ models:
         data_type: varchar
       - name: notice_id
         data_type: bigint
-      - name: date
+      - name: posted_at
         data_type: timestamptz
       - name: date_event_start
         data_type: timestamptz
       - name: date_event_end
         data_type: timestamptz
-  - name: stg_nexon__notice_event_detail
+  - name: stg_nexon__event_notice_details
     columns:
       - name: notice_id
         data_type: bigint
@@ -2198,13 +2198,13 @@ models:
         data_type: varchar
       - name: contents
         data_type: varchar
-      - name: date
+      - name: posted_at
         data_type: timestamptz
       - name: date_event_start
         data_type: timestamptz
       - name: date_event_end
         data_type: timestamptz
-  - name: stg_nexon__notice_cashshop
+  - name: stg_nexon__cashshop_notices
     columns:
       - name: title
         data_type: varchar
@@ -2214,15 +2214,15 @@ models:
         data_type: varchar
       - name: notice_id
         data_type: bigint
-      - name: date
+      - name: posted_at
         data_type: timestamptz
       - name: date_sale_start
         data_type: timestamptz
       - name: date_sale_end
         data_type: timestamptz
-      - name: ongoing_flag
+      - name: is_ongoing
         data_type: boolean
-  - name: stg_nexon__notice_cashshop_detail
+  - name: stg_nexon__cashshop_notice_details
     columns:
       - name: notice_id
         data_type: bigint
@@ -2232,11 +2232,227 @@ models:
         data_type: varchar
       - name: contents
         data_type: varchar
-      - name: date
+      - name: posted_at
         data_type: timestamptz
       - name: date_sale_start
         data_type: timestamptz
       - name: date_sale_end
         data_type: timestamptz
-      - name: ongoing_flag
+      - name: is_ongoing
         data_type: boolean
+  - name: stg_object_storage__arcane_force_costs
+    description: "Arcane Symbol growth cost per Arcane River region and symbol level."
+    columns:
+      - name: region
+        data_type: varchar
+      - name: symbol_level
+        data_type: integer
+      - name: arcane_force
+        data_type: integer
+      - name: main_stat
+        data_type: integer
+      - name: main_stat_xenon
+        data_type: integer
+      - name: main_stat_demon_avenger
+        data_type: integer
+      - name: required_growth
+        description: "Symbols needed to reach the next level."
+        data_type: integer
+      - name: required_meso
+        data_type: bigint
+      - name: cumulative_growth
+        data_type: integer
+      - name: cumulative_meso
+        data_type: bigint
+      - name: cumulative_growth_as_printed
+        data_type: integer
+      - name: cumulative_meso_as_printed
+        data_type: bigint
+      - name: content_hash
+        description: "Hash of the scraped HTML this row came from."
+        data_type: varchar
+      - name: fetched_at
+        description: "Date the source page was scraped."
+        data_type: date
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - region
+              - symbol_level
+  - name: stg_object_storage__authentic_force_costs
+    description: "Authentic Symbol growth cost per Grandis region and symbol level."
+    columns:
+      - name: region
+        data_type: varchar
+      - name: symbol_level
+        data_type: integer
+      - name: authentic_force
+        data_type: integer
+      - name: main_stat
+        data_type: integer
+      - name: main_stat_xenon
+        data_type: integer
+      - name: main_stat_demon_avenger
+        data_type: integer
+      - name: required_growth
+        description: "Symbols needed to reach the next level."
+        data_type: integer
+      - name: required_meso
+        data_type: bigint
+      - name: cumulative_growth
+        data_type: integer
+      - name: cumulative_meso
+        data_type: bigint
+      - name: cumulative_growth_as_printed
+        data_type: integer
+      - name: cumulative_meso_as_printed
+        data_type: bigint
+      - name: content_hash
+        description: "Hash of the scraped HTML this row came from."
+        data_type: varchar
+      - name: fetched_at
+        description: "Date the source page was scraped."
+        data_type: date
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - region
+              - symbol_level
+  - name: stg_object_storage__boss_intense_crystal_rewards
+    description: "Intense Power Crystal sale price per boss and difficulty."
+    columns:
+      - name: reset_cycle
+        description: "Boss reset cycle: 일간 / 주간 / 월간."
+        data_type: varchar
+      - name: boss_difficulty
+        data_type: varchar
+      - name: boss_name
+        data_type: varchar
+      - name: crystal_price
+        description: "Thousands separators stripped from the printed value."
+        data_type: bigint
+      - name: price_ratio_to_lowest_difficulty
+        description: "Multiplier against the boss's lowest difficulty. Null where the source printed `?`."
+        data_type: double precision
+      - name: content_hash
+        description: "Hash of the scraped HTML this row came from."
+        data_type: varchar
+      - name: fetched_at
+        description: "Date the source page was scraped."
+        data_type: date
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - boss_difficulty
+              - boss_name
+  - name: stg_object_storage__hexa_boss_rewards
+    description: "Sol Erda Energy dropped per boss and difficulty."
+    columns:
+      - name: boss_name
+        data_type: varchar
+      - name: boss_difficulty
+        data_type: varchar
+      - name: sol_erda_energy
+        description: "Non-digits stripped from the printed value."
+        data_type: integer
+      - name: content_hash
+        description: "Hash of the scraped HTML this row came from."
+        data_type: varchar
+      - name: fetched_at
+        description: "Date the source page was scraped."
+        data_type: date
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - boss_difficulty
+              - boss_name
+  - name: stg_object_storage__hexa_skill_costs
+    description: "Sol Erda and Sol Erda Fragment cost to level each HEXA core type."
+    columns:
+      - name: level_up
+        description: "The level transition the cost applies to, e.g. `0→1`."
+        data_type: varchar
+      - name: skill_core__sol_erda
+        data_type: varchar
+      - name: skill_core__sol_erda_fragment
+        data_type: varchar
+      - name: third_skill_core__sol_erda
+        data_type: varchar
+      - name: third_skill_core__sol_erda_fragment
+        data_type: varchar
+      - name: mastery_core__sol_erda
+        data_type: varchar
+      - name: mastery_core__sol_erda_fragment
+        data_type: varchar
+      - name: enhancement_core__sol_erda
+        data_type: varchar
+      - name: enhancement_core__sol_erda_fragment
+        data_type: varchar
+      - name: common_core__sol_erda
+        data_type: varchar
+      - name: common_core__sol_erda_fragment
+        data_type: varchar
+      - name: class_common_core__sol_erda
+        data_type: varchar
+      - name: class_common_core__sol_erda_fragment
+        data_type: varchar
+      - name: content_hash
+        description: "Hash of the scraped HTML this row came from."
+        data_type: varchar
+      - name: fetched_at
+        description: "Date the source page was scraped."
+        data_type: date
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - level_up
+  - name: stg_object_storage__hexa_third_skill_cores
+    description: "Each character class's 3rd HEXA skill core."
+    columns:
+      - name: character_class
+        data_type: varchar
+      - name: third_skill_core_name
+        data_type: varchar
+      - name: content_hash
+        description: "Hash of the scraped HTML this row came from."
+        data_type: varchar
+      - name: fetched_at
+        description: "Date the source page was scraped."
+        data_type: date
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - character_class
+              - third_skill_core_name
+  - name: stg_object_storage__images
+    description: |-
+      Listing of every image blob archived under `raw/{namespace}/images/`. A bucket
+      listing rather than a scraped page, so there is no `fetched_at` /
+      `content_hash` — `modification_date` is the freshness signal.
+    columns:
+      - name: object_key
+        description: "Bucket-qualified key, i.e. `raw/` + `relative_path`."
+        data_type: varchar
+        data_tests:
+          - not_null
+          - unique
+      - name: relative_path
+        description: |-
+          Path below the bucket. Depth varies by namespace:
+          `{namespace}/images/{file}`, `{namespace}/images/{group}/{file}`, or
+          `{namespace}/images/sprite/{entity}/{file}`.
+        data_type: varchar
+      - name: file_name
+        data_type: varchar
+      - name: content_type
+        data_type: varchar
+      - name: size_in_bytes
+        data_type: bigint
+      - name: modification_date
+        data_type: timestamptz
